@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useInput } from "./hooks";
+import { pageStates } from "./enums";
+import "./styles.css"
 
 const loginURL = "https://reactapi-6jhi.onrender.com/api/users/login";
 
@@ -9,29 +11,29 @@ export function LoginScreen(props) {
     let password = useInput("");
     let [inputDisabled, setInputDiabled] = useState(false);
 
-    function validateInputs() {
+    function validInputs() {
 
         if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value) && password.value.length >= 8) {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
 
+    }
+
+    function switchToCreateUser() {
+        props.setPageState(pageStates.CREATE_USER);
     }
 
     async function handleSubmit(event) {
 
-        setInputDiabled(true);
-        
         event.preventDefault();
+        setInputDiabled(true);
 
         let loginDTO = {
             email: email.value,
             password: password.value
         }
-
-        email.value = "";
-        password.value = "";
 
         let response;
 
@@ -49,32 +51,37 @@ export function LoginScreen(props) {
         }
         finally {
             setInputDiabled(false);
-            if (!response.ok)
+
+            if (!response.ok) {
                 return;
+            }
+
+            email.value = "";
+            password.value = "";
         }
 
         let responseData = await response.json();
 
-        console.log(responseData);
-
-        console.log("Input: " + email.value);
-        console.log("Input: " + password.value);
+        props.setPageState(pageStates.LOGGED_IN);
+        props.setUser({ user: responseData.name, email: responseData.email });
 
     }
 
-    return(
-        <>
-        <form id="loginForm" onSubmit={handleSubmit}>
-            <label>Email:</label>
-            <input {...email} />
-            <br />
-            <label>Password:</label>
-            <input {...password} type="password" />
-            <br />
-            <button type="submit" disabled={inputDisabled || validateInputs()}>Login</button>
-        </form>
-        <button disabled={inputDisabled}>Create</button>
-        </>
+    return (
+        <div className="loginScreen">
+            <form id="loginForm" onSubmit={handleSubmit}>
+                <label className="loginLabel">Email:</label>
+                <input {...email} className="loginInput" />
+                <br />
+                {/* Tooltip/feedback */}
+                <label className="loginLabel">Password:</label>
+                <input {...password} type="password" className="loginInput" />
+                <br />
+                {/* Tooltip/feedback */}
+                <button type="submit" disabled={inputDisabled || !validInputs()} className="loginButton">Login</button>
+            </form>
+            <button disabled={inputDisabled} className="loginButton" onClick={switchToCreateUser}>Create new user</button>
+        </ div>
     );
 
 }
