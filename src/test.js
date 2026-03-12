@@ -1,17 +1,21 @@
 import React from "react";
-import sexymorten from "./sexymorten.jpg";
 import { useInput } from "./hooks";
 
 export function Test(props) {
 
-    let windowWidth = window.innerWidth;
-    let windowHeight = window.innerHeight;
-    let input = useInput("Hej");
+    let input = useInput("");
+
+    function clearInput() {
+        input.value = "";
+    }
 
     return (
         <>
-            <input {...input}/>
-            <img width={windowWidth} height={windowHeight} src={sexymorten} />
+            <h1>{input.value}</h1>
+            <form>
+                <input {...input} />
+                <button type="submit" onClick={clearInput}>Test</button>
+            </form>
         </>
     );
 
