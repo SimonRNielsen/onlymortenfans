@@ -1,22 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { useInput } from "./hooks";
 
 const loginURL = "https://reactapi-6jhi.onrender.com/api/users/login";
 
 export function LoginScreen(props) {
 
-    let name = useInput("");
+    let email = useInput("");
     let password = useInput("");
-    let inputDisabled = false;
+    let [inputDisabled, setInputDiabled] = useState(false);
+
+    function validateInputs() {
+
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value) && password.value.length >= 8) {
+            return false;
+        }
+
+        return true;
+
+    }
 
     async function handleSubmit(event) {
+
+        setInputDiabled(true);
         
         event.preventDefault();
 
         let loginDTO = {
-            email: name.value,
+            email: email.value,
             password: password.value
         }
+
+        email.value = "";
+        password.value = "";
 
         let response;
 
@@ -32,19 +47,18 @@ export function LoginScreen(props) {
         catch (error) {
             console.error(error);
         }
+        finally {
+            setInputDiabled(false);
+            if (!response.ok)
+                return;
+        }
 
         let responseData = await response.json();
 
         console.log(responseData);
 
-        console.log("Input: " + name.value);
+        console.log("Input: " + email.value);
         console.log("Input: " + password.value);
-
-    }
-
-    function disableInput() {
-        if (inputDisabled) return true;
-        return false;
 
     }
 
@@ -52,14 +66,14 @@ export function LoginScreen(props) {
         <>
         <form id="loginForm" onSubmit={handleSubmit}>
             <label>Email:</label>
-            <input {...name} />
+            <input {...email} />
             <br />
             <label>Password:</label>
-            <input {...password}/>
+            <input {...password} type="password" />
             <br />
-            <button type="submit" disabled={disableInput()}>Login</button>
+            <button type="submit" disabled={inputDisabled || validateInputs()}>Login</button>
         </form>
-        <button disabled={disableInput()}>Create</button>
+        <button disabled={inputDisabled}>Create</button>
         </>
     );
 
