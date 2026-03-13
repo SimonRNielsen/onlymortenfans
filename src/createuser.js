@@ -10,7 +10,7 @@ export function CreateScreen(props) {
     let email = useInput("");
     let password = useInput("");
     let [inputDisabled, setInputDiabled] = useState(false);
-    let username = useInput("");
+    let name = useInput("");
 
     function validInputs() {
 
@@ -30,9 +30,9 @@ export function CreateScreen(props) {
         <div className="loginScreen">
             <form id="loginForm" onSubmit={handleSubmit}>
                 <label className="loginLabel">Name:</label>
-                <input {...username} className="loginInput" />
+                <input {...name} className="loginInput" />
                 <br />
-                {TooltipUsername(username.value)}
+                {TooltipUsername(name.value)}
                 <label className="loginLabel">Email:</label>
                 <input {...email} className="loginInput" />
                 <br />
@@ -52,7 +52,7 @@ export function CreateScreen(props) {
     }
 
     function TooltipUsername(username) {
-        if (/\ /.test(username) || username.length < 2) {
+        if (/ /.test(username) || username.length < 2) {
             // console.log("False");
             return false;
         }
@@ -66,10 +66,41 @@ export function CreateScreen(props) {
         event.preventDefault(); //Ellers refresher submit hjemmesiden
         setInputDiabled(true);
 
-let loginDTO = {
+        let createUserDTO = {
+            name: name.value,
+            email: email.value,
+            password: password.value
+        }
 
-}
+        let response;
 
+        try {
+            response = await fetch(createURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(createUserDTO)
+            });
+        }
+        catch (error) {
+            console.log(error);
+        }
+        finally {
+            setInputDiabled(false);
+
+            if(!response.ok) {
+                return;
+            }
+
+            name.value= "";
+            email.value="";
+            password.value="";
+        }
+
+        let responseData = await response.json();
+
+        props.setPageState(pageStates.LOGGED_IN);
+        props.setUser({user: responseData.name, 
+            email: responseData.email})
     }
 
 }
