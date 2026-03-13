@@ -15,20 +15,15 @@
   min-width: 129px;
   text-align: center;
   color: white;
-  
-  /* display: flex;
-  flex-direction: column; */
 }
 
 .loginButton:hover {
   background-image: url("./pics/buttonPressed.png");
 }
 
-.loginScreen {
-  background-color: red;
-
-  /* display: flex;
+.loginForm {
+  background-color: lightslategray;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px; */
 }

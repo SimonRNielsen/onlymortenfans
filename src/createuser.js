@@ -38,22 +38,26 @@ export function CreateScreen(props) {
 
     return (
         <div className="loginScreen">
-            <form id="loginForm" onSubmit={handleSubmit}>
+            <form id="loginForm" className ="loginForm" onSubmit={handleSubmit}>
                 <label className="loginLabel">Name:</label>
                 <input {...name} className="loginInput" />
                 <br />
                 {TooltipUsername(name.value)}
+                 <br />
                 <label className="loginLabel">Email:</label>
                 <input {...email} className="loginInput" />
                 <br />
                 <EmailTooltip email={validEmail} />
+                 <br />
                 <label className="loginLabel">Password:</label>
                 <input {...password} type="password" className="loginInput" />
                 <br />
                 <PasswordTooltip small={containsSmallCharacter} capital={containsCapitalCharacter} number={containsNumber} isLong={isLongEnough} />
+                 <br />
                 <button type="submit" disabled={inputDisabled || !validInputs()} className="loginButton">Login</button>
+                <br />
+                <button disabled={inputDisabled} className="loginButton" onClick={switchToLogin}>Back to login</button>
             </form>
-            <button disabled={inputDisabled} className="loginButton" onClick={switchToLogin}>Back to login</button>
         </ div>
     );
 
