@@ -13,7 +13,11 @@ export function LoginScreen(props) {
 
     function validInputs() {
 
-        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value) && password.value.length >= 8) {
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value) && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password.value)) { 
+            // "/^ [^\s@] +@ [^\s@] +\. [^\s@] + $/" = RegEx -> regular expression,
+            // i de her tilfælde betyder det at den opbygger et eksempel hvor der er tekst før @ og imellem det og et . og afslutter med tekst igen 
+            // test holder de 2 strings op mod hinanden
+            // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/ -> /^ = start af streng, (?=.*[a-z]) = indeholder et lille bogstav, (?=.*[A-Z]) = indeholder et stort bogstav, (?=.*\d) = indeholder et tal, .{8,} er mindst 8 i længden, $/ = slut
             return true;
         }
 
@@ -27,7 +31,7 @@ export function LoginScreen(props) {
 
     async function handleSubmit(event) {
 
-        event.preventDefault();
+        event.preventDefault(); //Ellers refresher submit hjemmesiden
         setInputDiabled(true);
 
         let loginDTO = {
