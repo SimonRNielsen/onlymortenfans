@@ -23,7 +23,7 @@ export function LoginScreen(props) {
 
     function validInputs() {
 
-        if (validEmail && validPassword) { 
+        if (validEmail && validPassword) {
             return true;
         }
 
@@ -83,11 +83,11 @@ export function LoginScreen(props) {
                 <label className="loginLabel">Email:</label>
                 <input {...email} className="loginInput" />
                 <br />
-                <EmailTooltip email={validEmail}/>
+                <EmailTooltip email={validEmail} />
                 <label className="loginLabel">Password:</label>
                 <input {...password} type="password" className="loginInput" />
                 <br />
-                <PasswordTooltip small={containsSmallCharacter} capital={containsCapitalCharacter} number={containsNumber} isLong={isLongEnough}/>
+                <PasswordTooltip small={containsSmallCharacter} capital={containsCapitalCharacter} number={containsNumber} isLong={isLongEnough} />
                 <button type="submit" disabled={inputDisabled || !validInputs()} className="loginButton">Login</button>
             </form>
             <button disabled={inputDisabled} className="loginButton" onClick={switchToCreateUser}>Create new user</button>
@@ -107,10 +107,10 @@ export function PasswordTooltip(props) {
 
     return (
         <>
-        <div className="tooltip">Password must contain at least 1 small character {props.small ? "✔️" : "❌"}</div>
-        <div className="tooltip">Password must contain at least 1 capital character {props.capital ? "✔️" : "❌"}</div>
-        <div className="tooltip">Password must contain at least 1 number {props.number ? "✔️" : "❌"}</div>
-        <div className="tooltip">Password must contain at least be 8 characters long {props.isLong ? "✔️" : "❌"}</div>
+            <div className="tooltip">Password must contain at least 1 small character {props.small ? "✔️" : "❌"}</div>
+            <div className="tooltip">Password must contain at least 1 capital character {props.capital ? "✔️" : "❌"}</div>
+            <div className="tooltip">Password must contain at least 1 number {props.number ? "✔️" : "❌"}</div>
+            <div className="tooltip">Password must contain at least be 8 characters long {props.isLong ? "✔️" : "❌"}</div>
         </>
     );
 }

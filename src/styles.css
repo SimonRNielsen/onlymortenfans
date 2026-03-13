@@ -3,6 +3,10 @@
   min-height: 95vh;
   background-size: contain;
   background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .loginButton {
@@ -11,12 +15,20 @@
   min-width: 129px;
   text-align: center;
   color: white;
+  
+  /* display: flex;
+  flex-direction: column; */
 }
 
 .loginButton:hover {
   background-image: url("./pics/buttonPressed.png");
 }
 
-.loginForm {
-  
+.loginScreen {
+  background-color: red;
+
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; */
 }
