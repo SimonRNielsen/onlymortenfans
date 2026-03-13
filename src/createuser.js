@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useInput } from "./hooks";
 import { pageStates } from "./enums";
 import "./styles.css"
+import { EmailTooltip, PasswordTooltip } from "./login";
 
 const createURL = "https://reactapi-6jhi.onrender.com/api/users/create";
 
@@ -12,13 +13,22 @@ export function CreateScreen(props) {
     let [inputDisabled, setInputDiabled] = useState(false);
     let name = useInput("");
 
+    // let validName = / /.test(name.value) && name.length < 2;
+
+    let validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+    let containsCapitalCharacter = /[A-Z]/.test(password.value);
+    let containsSmallCharacter = /[a-z]/.test(password.value);
+    let containsNumber = /\d/.test(password.value);
+    let isLongEnough = password.value.length >= 8;
+    let validPassword = containsCapitalCharacter && containsSmallCharacter && containsNumber && isLongEnough;
+    // "/^ [^\s@] +@ [^\s@] +\. [^\s@] + $/" = RegEx -> regular expression,
+    // i de her tilfælde betyder det at den opbygger et eksempel hvor der er tekst før @ og imellem det og et . og afslutter med tekst igen 
+    // test holder de 2 strings op mod hinanden
+    // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/ -> /^ = start af streng, (?=.*[a-z]) = indeholder et lille bogstav, (?=.*[A-Z]) = indeholder et stort bogstav, (?=.*\d) = indeholder et tal, .{8,} er mindst 8 i længden, $/ = slut
+
     function validInputs() {
 
-        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value) && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password.value)) {
-            // "/^ [^\s@] +@ [^\s@] +\. [^\s@] + $/" = RegEx -> regular expression,
-            // i de her tilfælde betyder det at den opbygger et eksempel hvor der er tekst før @ og imellem det og et . og afslutter med tekst igen 
-            // test holder de 2 strings op mod hinanden
-            // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/ -> /^ = start af streng, (?=.*[a-z]) = indeholder et lille bogstav, (?=.*[A-Z]) = indeholder et stort bogstav, (?=.*\d) = indeholder et tal, .{8,} er mindst 8 i længden, $/ = slut
+        if (validEmail && validPassword) {
             return true;
         }
 
@@ -36,14 +46,14 @@ export function CreateScreen(props) {
                 <label className="loginLabel">Email:</label>
                 <input {...email} className="loginInput" />
                 <br />
-                {/* Tooltip/feedback */}
+                <EmailTooltip email={validEmail} />
                 <label className="loginLabel">Password:</label>
                 <input {...password} type="password" className="loginInput" />
                 <br />
-                {/* Tooltip/feedback */}
+                <PasswordTooltip small={containsSmallCharacter} capital={containsCapitalCharacter} number={containsNumber} isLong={isLongEnough} />
                 <button type="submit" disabled={inputDisabled || !validInputs()} className="loginButton">Login</button>
             </form>
-            <button disabled={inputDisabled} className="loginButton" onClick={switchToLogin}>Back to login</button> {/*Lav tilbage kanp */}
+            <button disabled={inputDisabled} className="loginButton" onClick={switchToLogin}>Back to login</button>
         </ div>
     );
 
@@ -52,14 +62,15 @@ export function CreateScreen(props) {
     }
 
     function TooltipUsername(username) {
+        let working;
         if (/ /.test(username) || username.length < 2) {
-            // console.log("False");
-            return false;
+            working = false;
         }
         else {
-            // console.log("True");
-            return true;
+            working = true;
         }
+
+        return <div className="tooltip">Username must have a valid format, eksample: martin or saint92 {working ? "✔️" : "❌"}</div>
     }
 
     async function handleSubmit(event) {
@@ -87,20 +98,22 @@ export function CreateScreen(props) {
         finally {
             setInputDiabled(false);
 
-            if(!response.ok) {
+            if (!response.ok) {
                 return;
             }
 
-            name.value= "";
-            email.value="";
-            password.value="";
+            name.value = "";
+            email.value = "";
+            password.value = "";
         }
 
         let responseData = await response.json();
 
         props.setPageState(pageStates.LOGGED_IN);
-        props.setUser({user: responseData.name, 
-            email: responseData.email})
+        props.setUser({
+            user: responseData.name,
+            email: responseData.email
+        })
     }
 
 }
