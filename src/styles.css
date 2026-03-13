@@ -4,3 +4,19 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+.loginButton {
+  background-image: url("./pics/button.png");
+  min-height: 64px;
+  min-width: 129px;
+  text-align: center;
+  color: white;
+}
+
+.loginButton:hover {
+  background-image: url("./pics/buttonPressed.png");
+}
+
+.loginForm {
+  
+}
