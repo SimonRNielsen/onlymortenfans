@@ -6,7 +6,7 @@ import "./styles.css"
 export function MainPage() {
 
     const [pageState, setPageState] = useState(pageStates.NOT_LOGGED_IN);
-    const [userInfo, setUser] = useState({ user: null, email: null });
+    const [userInfo, setUser] = useState({ user: null, email: null, id: null });
 
     return(
         <>

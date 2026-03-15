@@ -33,13 +33,19 @@ public class CreateUserDTO
 /// <summary>
 /// Data transfer object that's used for sending data to requestee
 /// </summary>
-public class UserReturnDTO
+public class PostDTO
 {
 
+    public required int PostID { get; set; }
 
-    public required string Name { get; set; }
+    public required string Poster { get; set; }
 
+    public required string Post { get; set; }
 
-    public required string Email { get; set; }
+    public List<string>? Comments { get; set; }
+
+    public int? Likes { get; set; }
+
+    public int? Dislikes { get; set; }
 
 }

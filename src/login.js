@@ -63,6 +63,9 @@ export function LoginScreen(props) {
             setInputDisabled(false);
 
             if (!response.ok) {
+
+                //Fejlet login feedback!
+
                 return;
             }
 
@@ -73,7 +76,7 @@ export function LoginScreen(props) {
         let responseData = await response.json();
 
         props.setPageState(pageStates.LOGGED_IN);
-        props.setUser({ user: responseData.name, email: responseData.email });
+        props.setUser({ user: responseData.name, email: responseData.email, id: responseData.id });
 
     }
 
@@ -107,10 +110,10 @@ export function PasswordTooltip(props) {
 
     return (
         <>
-        <div className="tooltip">Password must contain at least 1 small character {props.small ? "✔️" : "❌"}</div>
-        <div className="tooltip">Password must contain at least 1 capital character {props.capital ? "✔️" : "❌"}</div>
-        <div className="tooltip">Password must contain at least 1 number {props.number ? "✔️" : "❌"}</div>
-        <div className="tooltip">Password must contain at least be 8 characters long {props.isLong ? "✔️" : "❌"}</div>
+            <div className="tooltip">Password must contain at least 1 small character {props.small ? "✔️" : "❌"}</div>
+            <div className="tooltip">Password must contain at least 1 capital character {props.capital ? "✔️" : "❌"}</div>
+            <div className="tooltip">Password must contain at least 1 number {props.number ? "✔️" : "❌"}</div>
+            <div className="tooltip">Password must be at least 8 characters long {props.isLong ? "✔️" : "❌"}</div>
         </>
     );
 }
