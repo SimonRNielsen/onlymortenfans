@@ -132,7 +132,7 @@ export function HolyBoard(props) {
         <>
             {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection"/>}
             {videoplayer.src !== "" ? <DisplayContent src={videoplayer.src}/> : <></>}
-            {/* map posts */}
+            {posts.map((post) => <Post key={post.postID} {...post} users={users}/>)}
         </>
     );
 
