@@ -6,6 +6,7 @@ export function Post(props) {
 
     let postID = props.postid;
     let posterID = props.posterid;
+    let posterName = props.name;
     let post = props.post;
     let pictureURL = props.pictureurl;
     let comments = props.comments;
@@ -14,7 +15,7 @@ export function Post(props) {
 
     return (
         <>
-            <DisplayContent src={pictureURL}/>
+            
         </>
     );
 

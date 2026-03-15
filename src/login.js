@@ -44,19 +44,19 @@ export function LoginScreen(props) {
 
         try {
             response = await login(loginDTO);
-        }
-        catch (error) {
-            setServerError(true);
-            console.error(error);
-        }
-        finally {
-            setInputDisabled(false);
             if (!response || !response.ok) {
                 setInputValid(false);
                 return;
             }
         }
-
+        catch (error) {
+            setServerError(true);
+            console.error(error);
+            return;
+        }
+        
+        setInputDisabled(false);
+        
         email.value = "";
         password.value = "";
 
