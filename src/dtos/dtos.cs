@@ -1,6 +1,3 @@
-/// <summary>
-/// Data transfer object with data needed for logging in
-/// </summary>
 public class LoginDTO
 {
 
@@ -13,9 +10,6 @@ public class LoginDTO
 
 }
 
-/// <summary>
-/// Data transfer object with data pertinent for creating a new user
-/// </summary>
 public class CreateUserDTO
 {
 
@@ -28,24 +22,113 @@ public class CreateUserDTO
 
     public required string Password { get; set; }
 
+
+    public string? ID { get; set; }
+
 }
 
-/// <summary>
-/// Data transfer object that's used for sending data to requestee
-/// </summary>
+public class UserReturnDTO
+{
+
+
+    public required string Name { get; set; }
+
+
+    public required string Email { get; set; }
+
+
+    public required string ID { get; set; }
+
+}
+
+public class UserListingDTO
+{
+
+    public required string ID { get; set; }
+
+    public required string Name { get; set; }
+
+}
+
 public class PostDTO
 {
 
-    public required int PostID { get; set; }
+    public string PostID { get; set; } = Guid.NewGuid().ToString();
 
-    public required string Poster { get; set; }
+    public required string PosterID { get; set; }
 
     public required string Post { get; set; }
 
-    public List<string>? Comments { get; set; }
+    public string? PictureURL { get; set; }
 
-    public int? Likes { get; set; }
+    public List<CommentDTO> Comments { get; set; } = new List<CommentDTO>();
 
-    public int? Dislikes { get; set; }
+    public List<string> Likes { get; set; } = new List<string>();
+
+    public List<string> Dislikes { get; set; } = new List<string>();
+
+}
+
+public class CreatePostDTO
+{
+
+    public required string PosterID { get; set; }
+
+    public required string Post { get; set; }
+
+    public string? PictureURL { get; set; }
+
+}
+
+public class CommentDTO
+{
+
+    public string CommentID { get; set; } = Guid.NewGuid().ToString();
+
+    public required string PostID { get; set; }
+
+    public required string PosterID { get; set; }
+
+    public required string Comment { get; set; }
+
+}
+
+public class NewCommentDTO
+{
+
+    public required string PostID { get; set; }
+
+    public required string PosterID { get; set; }
+
+    public required string Comment { get; set; }
+
+}
+
+public class DeletePostDTO
+{
+
+    public required string PostID { get; set; }
+
+    public required string PosterID { get; set; }
+
+}
+
+public class DeleteCommentDTO
+{
+
+    public required string CommentID { get; set; }
+
+    public required string PosterID { get; set; }
+
+}
+
+public class OpinionDTO
+{
+
+    public required string PostID { get; set; }
+
+    public required string UserID { get; set; }
+
+    public required bool Opinion { get; set; }
 
 }
