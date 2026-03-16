@@ -3,6 +3,7 @@ import { useInput } from "./hooks";
 import { pageStates } from "./enums";
 import "./styles.css"
 import { EmailTooltip, PasswordTooltip } from "./login";
+import { create } from "./api/api";
 
 const createURL = "https://reactapi-6jhi.onrender.com/api/users/create";
 
@@ -90,14 +91,11 @@ export function CreateScreen(props) {
         let response;
 
         try {
-            response = await fetch(createURL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(createUserDTO)
-            });
+            response = await create(createUserDTO);
         }
         catch (error) {
             console.log(error);
+            return;
         }
         finally {
             setInputDiabled(false);
@@ -116,7 +114,8 @@ export function CreateScreen(props) {
         props.setPageState(pageStates.LOGGED_IN);
         props.setUser({
             user: responseData.name,
-            email: responseData.email
+            email: responseData.email,
+            id: responseData.id
         })
     }
 
