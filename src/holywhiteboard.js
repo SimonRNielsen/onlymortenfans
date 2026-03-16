@@ -116,8 +116,6 @@ export function HolyWhiteboard(props) {
 
         setPosts(postDTOArray);
 
-        console.log(postDTOArray);
-
     }
 
     function fillUsers(userListingDTOArray) {
