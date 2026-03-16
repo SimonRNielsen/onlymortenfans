@@ -111,11 +111,11 @@ export function Post(props) {
             <hr />
             {pictureURL ? <img onClick={() => props.onClick(pictureURL)} src={video === null ? pictureURL : `https://img.youtube.com/vi/${video}/hqdefault.jpg`} alt="" /> : <></>}
             <div>{post}</div>
-            <label>Likes:</label><div className="likeContainer" onClick={() => setOpinion(true)}><img src={like} alt="likes"/><div className="likeTekst">{likes.length}</div></div>
-            <label>Dislikes</label><div className="likeContainer" onClick={() => setOpinion(false)}><img src={dislike} alt="dislikes"/><div className="dislikeTekst">{dislikes.length}</div></div>
+            <label className="opinionLabel">Likes:</label><div className="likeContainer" onClick={() => setOpinion(true)}><img src={like} alt="likes"/><div className="likeText">{likes.length}</div></div>
+            <label className="opinionLabel">Dislikes</label><div className="likeContainer" onClick={() => setOpinion(false)}><img src={dislike} alt="dislikes"/><div className="dislikeText">{dislikes.length}</div></div>
             <hr />
             <NewComment postID={postID} posterID={activeUser} triggerUpdate={props.triggerUpdate}/>
-            {comments.map((comment) => <Comment {...comment} users={props.users} user={props.user} triggerUpdate={props.triggerUpdate}/>)}
+            {comments.map((comment) => <Comment key={comment.commentID} {...comment} users={props.users} user={props.user} triggerUpdate={props.triggerUpdate}/>)}
         </div>
     );
 
@@ -188,7 +188,7 @@ function NewComment(props) {
             postID: props.postID,
             posterID: props.posterID,
             comment: comment.value
-        }
+        };
 
         let newCommentResponse;
 
