@@ -79,6 +79,15 @@ export function LoginScreen(props) {
 
     return (
         <div className="loginScreen">
+            <form id="logingForm" className="loginForm">
+                <h1>Welcome to Only Morten Fans</h1>
+                <label><b>This is a fan side for our beloved saint Morten of Tours</b></label>
+                <label><b>He is a true saint who protect us against the devil himself Goosifer</b></label>
+                <br />
+                <label><b>If you are not already a menber come join us</b></label>
+                <label><b>And show your love and appreciation for his holy work</b></label>
+                <br />
+            </form>
             <form id="loginForm" className ="loginForm" onSubmit={handleSubmit}>
                 <label className="loginLabel">Email:</label>
                 <input {...email} className="loginInput" />
