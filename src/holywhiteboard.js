@@ -4,7 +4,7 @@ import { DisplayContent } from "./components/videoplayer";
 import { checkUsers, getUsers, getPosts, updatePosts } from "./api/api";
 import { useClick } from "./hooks";
 import { ErrorOccured } from "./login";
-import { pageStates } from "./enums";
+// import { pageStates } from "./enums";
 import "./styles.css"
 
 export function HolyWhiteboard(props) {
@@ -16,6 +16,7 @@ export function HolyWhiteboard(props) {
     const videoplayer = useClick("");
     console.log(props.userInfo);
 
+    /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
         update();
         let interval = setInterval(() => {
@@ -24,6 +25,7 @@ export function HolyWhiteboard(props) {
 
         return () => clearInterval(interval);
     }, []);
+    /* eslint-enable react-hooks/exhaustive-deps */
 
     async function update() {
 
@@ -122,7 +124,7 @@ export function HolyWhiteboard(props) {
         
         let newDictionary = {};
         
-        userListingDTOArray.map((user) => {newDictionary[user.id] = user.name});
+        userListingDTOArray.forEach((user) => { newDictionary[user.id] = user.name; });
 
         setUsers(newDictionary);
 
