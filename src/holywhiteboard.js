@@ -139,7 +139,7 @@ export function HolyWhiteboard(props) {
         <div>
             {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection"/>}
             {videoplayer.src !== "" ? <DisplayContent src={videoplayer.src}/> : <></>}
-            {posts.map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo}/>)}
+            {posts.map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update}/>)}
         </div>
     );
 
