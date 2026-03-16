@@ -19,7 +19,7 @@ export function MainPage() {
             <div className="column" id="middleColumn">
                 <>
                     {pageState === pageStates.NOT_LOGGED_IN ? <LoginScreen setPageState={setPageState} setUser={setUser} /> : <></>}
-                    {pageState === pageStates.LOGGED_IN && userInfo.user !== null ? <HolyWhiteboard setPageState={setPageState} setUser={setUser} userInfo={userInfo} /> : <></>}
+                    {pageState === pageStates.LOGGED_IN ? <HolyWhiteboard setPageState={setPageState} setUser={setUser} userInfo={userInfo} /> : <></>}
                     {pageState === pageStates.CREATE_USER ? <CreateScreen setPageState={setPageState} setUser={setUser} /> : <></>}
                 </>
 

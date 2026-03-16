@@ -22,6 +22,9 @@ export function LoginScreen(props) {
     // test holder de 2 strings op mod hinanden
     // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/ -> /^ = start af streng, (?=.*[a-z]) = indeholder et lille bogstav, (?=.*[A-Z]) = indeholder et stort bogstav, (?=.*\d) = indeholder et tal, .{8,} er mindst 8 i længden, $/ = slut
 
+    console.log("I still loged in " + props.userInfo);
+
+
     function validInputs() {
         return validEmail && validPassword;
     }
@@ -54,9 +57,9 @@ export function LoginScreen(props) {
             console.error(error);
             return;
         }
-        
+
         setInputDisabled(false);
-        
+
         email.value = "";
         password.value = "";
 
@@ -80,9 +83,9 @@ export function LoginScreen(props) {
                 <label><b>And show your love and appreciation for his holy work</b></label>
                 <br />
             </form>
-            <form id="loginForm" className ="loginForm" onSubmit={handleSubmit}>
-                {serverError ? <ErrorOccured text="Error from server, please try again later"/>: <></>}
-                {inputValid ? <></> : <ErrorOccured text="Invalid email and/or password, make certain you entered the correct info and the user exists"/>}
+            <form id="loginForm" className="loginForm" onSubmit={handleSubmit}>
+                {serverError ? <ErrorOccured text="Error from server, please try again later" /> : <></>}
+                {inputValid ? <></> : <ErrorOccured text="Invalid email and/or password, make certain you entered the correct info and the user exists" />}
                 <label className="loginLabel">Email:</label>
                 <input {...email} className="loginInput" />
                 <br />
