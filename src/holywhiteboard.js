@@ -128,10 +128,10 @@ export function HolyWhiteboard(props) {
 
     }
 
-    function logOut() {
-        props.setUser({ user: null, email: null, id: null });
-        props.setPageState(pageStates.NOT_LOGGED_IN);
-    }
+    // function logOut() {
+    //     props.setUser({ user: null, email: null, id: null });
+    //     props.setPageState(pageStates.NOT_LOGGED_IN);
+    // }
     
     return (
         <div>

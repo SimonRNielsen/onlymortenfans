@@ -5,8 +5,6 @@ import "./styles.css"
 import { EmailTooltip, PasswordTooltip } from "./login";
 import { create } from "./api/api";
 
-const createURL = "https://reactapi-6jhi.onrender.com/api/users/create";
-
 export function CreateScreen(props) {
 
     let email = useInput("");
