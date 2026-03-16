@@ -1,11 +1,6 @@
 .backgroundContainer {
-  background-image: url("./pics/sexiestmorten.png");
-  min-height: 95vh;
-  background-size: contain;
-  background-repeat: no-repeat;
-
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
   align-items: center;
 }
 
@@ -26,4 +21,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+}
+
+#leftColumn {
+  background-image: url("./pics/sexiestmorten.png");
+  transform: rotateY(180deg);
+  
+  min-height: 95vh;
+  min-width: 33.33%;
+}
+
+#rightColumn {
+  background-image: url("./pics/sexiestmorten.png");
+  min-height: 95vh;
+
+  min-width: 33.33%;
 }
