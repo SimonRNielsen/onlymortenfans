@@ -9,3 +9,13 @@ export function useInput(initialValue) {
 
     return { value: inputValue, onChange: handleChange};
 }
+
+export function useClick(url) {
+    const [link, setLink] = useState(url);
+
+    function handleClick(newURL) {
+        setLink(newURL);
+    }
+
+    return { src: link, onClick: handleClick}
+}

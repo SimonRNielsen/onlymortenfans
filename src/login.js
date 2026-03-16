@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useInput } from "./hooks";
 import { pageStates } from "./enums";
+import { login } from "./api/api";
 import "./styles.css"
-
-const loginURL = "https://reactapi-6jhi.onrender.com/api/users/login";
 
 export function LoginScreen(props) {
 
     let email = useInput("");
     let password = useInput("");
     let [inputDisabled, setInputDisabled] = useState(false);
+    let [inputValid, setInputValid] = useState(true);
+    let [serverError, setServerError] = useState(false);
     let validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
     let containsCapitalCharacter = /[A-Z]/.test(password.value);
     let containsSmallCharacter = /[a-z]/.test(password.value);
@@ -22,13 +23,7 @@ export function LoginScreen(props) {
     // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/ -> /^ = start af streng, (?=.*[a-z]) = indeholder et lille bogstav, (?=.*[A-Z]) = indeholder et stort bogstav, (?=.*\d) = indeholder et tal, .{8,} er mindst 8 i længden, $/ = slut
 
     function validInputs() {
-
-        if (validEmail && validPassword) {
-            return true;
-        }
-
-        return false;
-
+        return validEmail && validPassword;
     }
 
     function switchToCreateUser() {
@@ -48,32 +43,29 @@ export function LoginScreen(props) {
         let response;
 
         try {
-
-            response = await fetch(loginURL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(loginDTO)
-            });
-
-        }
-        catch (error) {
-            console.error(error);
-        }
-        finally {
-            setInputDisabled(false);
-
-            if (!response.ok) {
+            response = await login(loginDTO);
+            if (!response || !response.ok) {
+                setInputValid(false);
                 return;
             }
-
-            email.value = "";
-            password.value = "";
         }
+        catch (error) {
+            setServerError(true);
+            console.error(error);
+            return;
+        }
+        
+        setInputDisabled(false);
+        
+        email.value = "";
+        password.value = "";
 
         let responseData = await response.json();
 
         props.setPageState(pageStates.LOGGED_IN);
-        props.setUser({ user: responseData.name, email: responseData.email });
+        props.setUser({ user: responseData.name, email: responseData.email, id: responseData.id });
+        setInputValid(true);
+        setServerError(false);
 
     }
 
@@ -89,6 +81,8 @@ export function LoginScreen(props) {
                 <br />
             </form>
             <form id="loginForm" className ="loginForm" onSubmit={handleSubmit}>
+                {serverError ? <ErrorOccured text="Error from server, please try again later"/>: <></>}
+                {inputValid ? <></> : <ErrorOccured text="Invalid email and/or password, make certain you entered the correct info and the user exists"/>}
                 <label className="loginLabel">Email:</label>
                 <input {...email} className="loginInput" />
                 <br />
@@ -122,7 +116,17 @@ export function PasswordTooltip(props) {
             <div className="tooltip">Password must contain at least 1 small character {props.small ? "✔️" : "❌"}</div>
             <div className="tooltip">Password must contain at least 1 capital character {props.capital ? "✔️" : "❌"}</div>
             <div className="tooltip">Password must contain at least 1 number {props.number ? "✔️" : "❌"}</div>
-            <div className="tooltip">Password must contain at least be 8 characters long {props.isLong ? "✔️" : "❌"}</div>
+            <div className="tooltip">Password must be at least 8 characters long {props.isLong ? "✔️" : "❌"}</div>
         </>
     );
+}
+
+export function ErrorOccured(props) {
+
+    return (
+        <>
+            <br /><p className="warning" style={{ color: "red" }}>{props.text}</p>
+        </>
+    );
+
 }
