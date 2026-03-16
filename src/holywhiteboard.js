@@ -6,6 +6,7 @@ import { useClick } from "./hooks";
 import { ErrorOccured } from "./login";
 // import { pageStates } from "./enums";
 import "./styles.css"
+import { pageStates } from "./enums";
 
 export function HolyWhiteboard(props) {
     const [serverConnectionActive, setServerConnection] = useState(true);
@@ -63,18 +64,18 @@ export function HolyWhiteboard(props) {
 
         postHash.current = postResponseData;
         userHash.current = userResponseData;
-        
+
         getPostsOrUsers(newUsers, newPosts);
 
     }
 
     async function getPostsOrUsers(newUsers, newPosts) {
-        
+
         let getNewUsersResponse;
         let getNewPostsResponse;
 
         try {
-            let getNewPosts; 
+            let getNewPosts;
             let getNewUsers;
             if (newPosts) {
                 getNewPosts = getPosts();
@@ -121,9 +122,9 @@ export function HolyWhiteboard(props) {
     }
 
     function fillUsers(userListingDTOArray) {
-        
+
         let newDictionary = {};
-        
+
         userListingDTOArray.forEach((user) => { newDictionary[user.id] = user.name; });
 
         setUsers(newDictionary);
@@ -134,13 +135,19 @@ export function HolyWhiteboard(props) {
     //     props.setUser({ user: null, email: null, id: null });
     //     props.setPageState(pageStates.NOT_LOGGED_IN);
     // }
-    
+
     return (
         <div>
-            {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection"/>}
-            {videoplayer.src !== "" ? <DisplayContent src={videoplayer.src}/> : <></>}
-            {posts.map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo}/>)}
+            {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection" />}
+            {videoplayer.src !== "" ? <DisplayContent src={videoplayer.src} /> : <></>}
+            {posts.map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} />)}
+
+            <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
         </div>
     );
+
+    function logout() {
+        props.setPageState(pageStates.NOT_LOGGED_IN);
+    }
 
 }

@@ -1,7 +1,8 @@
 .backgroundContainer {
   /* display: flex;
   justify-content: center; */
-  align-items: center;
+  background-color: black;
+  /* align-items: center; */
 }
 
 .loginButton {
@@ -16,13 +17,19 @@
   background-image: url("./pics/buttonPressed.png");
 }
 
+#logoutButton {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
 .loginForm {
   background-color: lightslategray;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
 }
-
 
 .row {
   display: flex;
@@ -30,19 +37,28 @@
 
 .column {
   flex: 1;
+    background-color: black;
 }
 
 #leftColumn {
   background-image: url("./pics/sexiestmorten.png");
-  transform: rotateY(180deg);
-  
+  background-repeat: no-repeat;
+  transform: scaleX(-1);
   min-height: 95vh;
   min-width: 33.33%;
+  background-position: -50px center;
 }
 
 #rightColumn {
   background-image: url("./pics/sexiestmorten.png");
+  background-repeat: no-repeat;
   min-height: 95vh;
-
   min-width: 33.33%;
+  background-position: -50px center;
+}
+
+#middelClomun {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
