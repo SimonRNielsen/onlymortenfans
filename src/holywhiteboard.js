@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Post } from "./holyboard_components/post";
-import { DisplayContent } from "./holyboard_components/videoplayer";
+import { Post } from "./components/post";
+import { DisplayContent } from "./components/videoplayer";
 import { checkUsers, getUsers, getPosts, updatePosts } from "./api/api";
 import { useClick } from "./hooks";
 import { ErrorOccured } from "./login";
+import { pageStates } from "./enums";
 import "./styles.css"
 
-export function HolyBoard(props) {
+export function HolyWhiteboard(props) {
     const [serverConnectionActive, setServerConnection] = useState(true);
     const [posts, setPosts] = useState([]);
     const [users, setUsers] = useState({});
@@ -127,13 +128,18 @@ export function HolyBoard(props) {
         setUsers(newDictionary);
 
     }
+
+    function logOut() {
+        props.setUser({ user: null, email: null, id: null });
+        props.setPageState(pageStates.NOT_LOGGED_IN);
+    }
     
     return (
-        <>
+        <div>
             {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection"/>}
             {videoplayer.src !== "" ? <DisplayContent src={videoplayer.src}/> : <></>}
-            {posts.map((post) => <Post key={post.postID} {...post} users={users}/>)}
-        </>
+            {posts.map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo}/>)}
+        </div>
     );
 
 }
