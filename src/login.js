@@ -71,20 +71,23 @@ export function LoginScreen(props) {
 
     return (
         <div className="loginScreen">
-            <form id="loginForm" onSubmit={handleSubmit}>
+            <form id="loginForm" className ="loginForm" onSubmit={handleSubmit}>
                 {serverError ? <ErrorOccured text="Error from server, please try again later"/>: <></>}
                 {inputValid ? <></> : <ErrorOccured text="Invalid email and/or password, make certain you entered the correct info and the user exists"/>}
                 <label className="loginLabel">Email:</label>
                 <input {...email} className="loginInput" />
                 <br />
-                <EmailTooltip email={validEmail}/>
+                <EmailTooltip email={validEmail} />
+                <br />
                 <label className="loginLabel">Password:</label>
                 <input {...password} type="password" className="loginInput" />
                 <br />
-                <PasswordTooltip small={containsSmallCharacter} capital={containsCapitalCharacter} number={containsNumber} isLong={isLongEnough}/>
+                <PasswordTooltip small={containsSmallCharacter} capital={containsCapitalCharacter} number={containsNumber} isLong={isLongEnough} />
+                <br />
                 <button type="submit" disabled={inputDisabled || !validInputs()} className="loginButton">Login</button>
+                <br />
+                <button disabled={inputDisabled} className="loginButton" onClick={switchToCreateUser}>Create new user</button>
             </form>
-            <button disabled={inputDisabled} className="loginButton" onClick={switchToCreateUser}>Create new user</button>
         </ div>
     );
 
