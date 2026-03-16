@@ -25,6 +25,7 @@ export function CreateScreen(props) {
     // test holder de 2 strings op mod hinanden
     // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/ -> /^ = start af streng, (?=.*[a-z]) = indeholder et lille bogstav, (?=.*[A-Z]) = indeholder et stort bogstav, (?=.*\d) = indeholder et tal, .{8,} er mindst 8 i længden, $/ = slut
 
+
     function validInputs() {
 
         if (validEmail && validPassword) {

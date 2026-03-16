@@ -131,11 +131,6 @@ export function HolyWhiteboard(props) {
 
     }
 
-    // function logOut() {
-    //     props.setUser({ user: null, email: null, id: null });
-    //     props.setPageState(pageStates.NOT_LOGGED_IN);
-    // }
-
     return (
         <div>
             {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection" />}
@@ -144,13 +139,12 @@ export function HolyWhiteboard(props) {
 
             <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
             <h2 className="showUsername">{props.userInfo.user}</h2>
-
-            
         </div>
     );
 
     function logout() {
         props.setPageState(pageStates.NOT_LOGGED_IN);
+        props.setUser({user: null, email: null, id: null});
     }
 
 }
