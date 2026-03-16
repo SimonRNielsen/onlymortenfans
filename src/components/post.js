@@ -57,6 +57,7 @@ export function Post(props) {
         }
         catch (error) {
             console.log(error);
+            setSentDeleteRequest(false);
             return;
         }
 
@@ -148,6 +149,7 @@ function Comment(props) {
 
         catch (error) {
             console.log(error);
+            setSentDeleteRequest(false);
             return;
         }
 
@@ -198,17 +200,17 @@ function NewComment(props) {
 
         catch (error) {
             console.log(error);
+            setPostPending(false);
             return;
         }
 
+        setPostPending(false);
         if (!newCommentResponse.ok) {
-            setPostPending(false);
             return;
         }
 
         props.triggerUpdate();
         comment.value = "";
-        setPostPending(false);
 
     }
 
