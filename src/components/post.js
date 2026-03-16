@@ -4,7 +4,7 @@ import "../styles.css"
 
 export function Post(props) {
 
-    let activeUser = props.userInfo.id;
+    let activeUser = props.user.id;
     let postID = props.postID;
     let posterID = props.posterID;
     let posterName = props.users[props.posterID];

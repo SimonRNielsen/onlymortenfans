@@ -14,6 +14,7 @@ export function HolyWhiteboard(props) {
     const postHash = useRef(null);
     const userHash = useRef(null);
     const videoplayer = useClick("");
+    console.log(props.userInfo);
 
     useEffect(() => {
         update();
