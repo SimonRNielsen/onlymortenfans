@@ -181,8 +181,8 @@ function CreateNewPost(props) {
             return;
         }
 
-        content.value = "";
-        post.value = "";
+        content.reset();
+        post.reset();
         props.triggerUpdate();
 
     }

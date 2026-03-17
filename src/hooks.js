@@ -7,7 +7,11 @@ export function useInput(initialValue) {
         setInputValue(event.target.value);
     }
 
-    return { value: inputValue, onChange: handleChange};
+    function reset() {
+        setInputValue(initialValue);
+    }
+
+    return { value: inputValue, onChange: handleChange, reset};
 }
 
 export function useClick(url) {

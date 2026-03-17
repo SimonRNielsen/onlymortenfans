@@ -57,8 +57,8 @@ export function LoginScreen(props) {
         
         setInputDisabled(false);
         
-        email.value = "";
-        password.value = "";
+        email.reset();
+        password.reset();
 
         let responseData = await response.json();
 

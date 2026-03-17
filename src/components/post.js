@@ -215,7 +215,7 @@ function NewComment(props) {
             return;
         }
 
-        comment.value = "";
+        comment.reset();
         props.triggerUpdate();
 
     }
