@@ -188,6 +188,10 @@ function CreateNewPost(props) {
     }
 
     function validateLink() {
+        if (!content.value) {
+            return null;
+        }
+
         try {
             new URL(content.value);
             return content.value;

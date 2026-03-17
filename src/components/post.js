@@ -23,6 +23,9 @@ export function Post(props) {
     let notPostOwner = activeUser !== posterID;
 
     function checkURL() {
+        if (!pictureURL) {
+            return null;
+        }
 
         let parsed = new URL(pictureURL);
 
