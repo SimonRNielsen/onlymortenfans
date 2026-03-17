@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -39,41 +40,66 @@ html, body {
 }
 
 .loginForm {
-  background-color: #D1D0CE; /*Grey goose*/
+  background-color: #D1D0CE;
+  /*Grey goose*/
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
 }
 
-.row {
-  display: flex;
-  height: 100vh;
-}
-
 .column {
   flex: 1;
-  width: 100%;
+}
+
+.row {
+  display: flex;
+}
+
+#leftColumn,
+#rightColumn {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 33.33%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: 0;
 }
 
 #leftColumn {
+  left: 0;
   background-image: url("./pics/sexiestmorten.png");
-  background-repeat: no-repeat;
   transform: scaleX(-1);
-  background-position: -50px center;
 }
 
 #rightColumn {
+  right: 0;
   background-image: url("./pics/sexiestmorten.png");
-  background-repeat: no-repeat;
-  background-position: -50px center;
 }
 
-#middelClomun {
+#middleColumn {
+  position: fixed;
+  top: 0;           /* start fra toppen af viewport */
+  bottom: 0;        /* slut ved bunden */
+  left: 33.33%;     /* starter efter venstre kolonne */
+  right: 33.33%;    /* stopper før højre kolonne */
+  z-index: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  flex-direction: column;
+  align-items: center;  /* centrerer børn horisontalt */
+  overflow-y: auto;     /* 🔑 gør kolonnen scrollable */
+  -webkit-overflow-scrolling: touch; /* glidende scroll på mobil */
+  padding-top: 20px;    /* lidt luft øverst */
+  background-color: transparent;
+}
+
+.holyWhiteboardContent {
+  background-color: #D1D0CE;
+  margin-top: 20px;
+  width: 100%;   /* fylder hele middleColumn */
+  max-width: none; /* eller sæt en begrænsning, hvis ønsket */
 }
 
 .showUsername {
@@ -83,20 +109,18 @@ html, body {
   right: 160px;
 }
 
-.holyWhiteboardContent 
-{
-  background-color: #D1D0CE; /*Grey goose*/
-  margin-top: 100px;
-}
 
-.holyWhiteboardHeader {
+.holywhiteboardHeader {
   background-color: black;
   color: white;
-  width: 33.33%;
-  position: fixed;
-  height: 100px;
+  /* width: 33.33%; */
+  /* position: fixed; */
+  margin-top: 0px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 
 .likeContainer {
   position: relative;
@@ -136,8 +160,7 @@ html, body {
 
 .contentOverlay {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100vw;
     height: 100vh;
     background: rgba(0,0,0,0.8);
@@ -158,3 +181,11 @@ html, body {
     cursor: pointer;
     z-index: 10000;
 }
+
+.enlargedPicture,
+.embeddedVideo {
+  aspect-ratio: 16/9;
+  width: 75vw;
+  object-fit: contain;
+  z-index: 9999;
+} 

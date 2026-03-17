@@ -113,7 +113,7 @@ export function Post(props) {
         <div className="postFrame" hidden={deleteSent}>
             <h3>{posterName}</h3><button hidden={notPostOwner} disabled={sentDeleteRequest} onClick={deleteThisPost}>x</button>
             <hr />
-            {pictureURL ? <img onClick={() => props.onClick(pictureURL)} src={video === null ? pictureURL : `https://img.youtube.com/vi/${video}/hqdefault.jpg`} alt="" /> : <></>}
+            {pictureURL ? <img className="postImage" onClick={() => props.onClick(pictureURL)} src={video === null ? pictureURL : `https://img.youtube.com/vi/${video}/hqdefault.jpg`} alt="" /> : <></>}
             <div>{post}</div>
             <label className="opinionLabel">Likes:</label><div className="likeContainer" onClick={() => setOpinion(true)}><img src={like} alt="likes"/><div className="likeText">{likes.length}</div></div>
             <label className="opinionLabel">Dislikes</label><div className="likeContainer" onClick={() => setOpinion(false)}><img src={dislike} alt="dislikes"/><div className="dislikeText">{dislikes.length}</div></div>
@@ -222,7 +222,9 @@ function NewComment(props) {
 
     return(
         <form className="newCommentForm" onSubmit={createComment}>
-            <textarea className="newCommentText" {...comment}/><button type="submit" disabled={postPending}>Send</button>
+            <textarea className="newCommentText" {...comment}/>
+            <br/>
+            <button type="submit" disabled={postPending}>Send</button>
         </form>
     );
 
