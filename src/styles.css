@@ -48,15 +48,12 @@ html, body {
 
 .row {
   display: flex;
-  height: 100%;
+  height: 100vh;
 }
 
 .column {
   flex: 1;
-  /* min-width: 33.33%; */
-  /* min-height: 95vh; */
   width: 100%;
-  min-height: 100%;
 }
 
 #leftColumn {
@@ -76,6 +73,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .showUsername {
@@ -95,12 +93,13 @@ html, body {
 .holyWhiteboardContent 
 {
   background-color: #D1D0CE; /*Grey goose*/
-  /* top: 80px; */
-  min-height: 100%;
+  top: 80px;
+  min-height:max-content;
 }
 
 .holyWhiteboardHeader {
   color: white;
+  width: 100%;
 }
 
 
@@ -135,35 +134,3 @@ html, body {
 .newCommentText {
   resize: none;
 }
-
-/* .likeContainer {
-  position: relative;
-  display: inline-block;
-}
-
-.likeContainer img {
-  width: 30px;
-  height: 30px;
-}
-
-.likeText {
-  position: absolute;
-  top: 10%;
-  left: 40%;
-  color: rgb(255, 12, 182);
-  font-weight: bolder;
-  font-size: 25px;
-}
-
-.dislikeText {
-  position: absolute;
-  top: 10%;
-  left: 40%;
-  color: rgb(240, 216, 7);
-  font-weight: bolder;
-  font-size: 25px;
-}
-
-.newCommentText {
-  resize: none;
-} */
