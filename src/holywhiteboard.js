@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Post } from "./components/post";
 import { DisplayContent } from "./components/videoplayer";
-import { checkUsers, getUsers, getPosts, updatePosts } from "./api/api";
-import { useClick } from "./hooks";
+import { checkUsers, getUsers, getPosts, updatePosts, addNewPost } from "./api/api";
+import { useClick, useInput } from "./hooks";
 import { ErrorOccured } from "./login";
-// import { pageStates } from "./enums";
 import "./styles.css"
 
 export function HolyWhiteboard(props) {
@@ -43,6 +42,8 @@ export function HolyWhiteboard(props) {
                 setServerConnection(false);
                 return;
             }
+
+            setServerConnection(true);
 
         }
 
@@ -129,18 +130,79 @@ export function HolyWhiteboard(props) {
         setUsers(newDictionary);
 
     }
-
-    // function logOut() {
-    //     props.setUser({ user: null, email: null, id: null });
-    //     props.setPageState(pageStates.NOT_LOGGED_IN);
-    // }
     
     return (
         <div>
-            {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection"/>}
+            {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection, action failed"/>}
             {videoplayer.src !== "" ? <DisplayContent src={videoplayer.src}/> : <></>}
-            {posts.map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update}/>)}
+            <CreateNewPost user={props.userInfo} triggerUpdate={update} postFailed={setServerConnection}/>
+            {posts.map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update} commentFailed={setServerConnection}/>)}
         </div>
+    );
+
+}
+
+function CreateNewPost(props) {
+    let [submittingPost, setSubmittingPost] = useState(false);
+    let content = useInput("");
+    let post = useInput("");
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        if (submittingPost) {
+            return;
+        }
+
+        setSubmittingPost(true);
+
+        let validLink = validateLink();
+
+        let createPostDTO = {
+            posterID: props.user.id,
+            post: post.value,
+            pictureURL: validLink
+        };
+
+        let createPostResponse;
+
+        try {
+            createPostResponse = await addNewPost(createPostDTO);
+        }
+        catch (error) {
+            console.log(error);
+            setSubmittingPost(false);
+            return;
+        }
+
+        setSubmittingPost(false);
+
+        if (!createPostResponse.ok) {
+            return;
+        }
+
+        props.triggerUpdate();
+        content.value = "";
+        post.value = "";
+
+    }
+
+    function validateLink() {
+        try {
+            new URL(content.value);
+            return content.value;
+        } 
+        catch {
+            return null;
+        }
+    }
+
+    return(
+        <form className="newPostForm" onSubmit={handleSubmit}>
+            <label>Anything interesting to post?</label><br /><textarea className="newPostText" {...post}/><br />
+            <label>Youtube video or image link:</label><br /><input className="newPostInput" {...content}/><br />
+            <br /><button type="submit" className="newPostButton" disabled={submittingPost}>Submit</button>
+        </ form>
     );
 
 }
