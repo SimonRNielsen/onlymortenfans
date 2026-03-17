@@ -5,6 +5,7 @@ import { checkUsers, getUsers, getPosts, updatePosts, addNewPost } from "./api/a
 import { useClick, useInput } from "./hooks";
 import { ErrorOccured } from "./login";
 import "./styles.css"
+import { pageStates } from "./enums";
 
 export function HolyWhiteboard(props) {
     const [serverConnectionActive, setServerConnection] = useState(true);
@@ -64,18 +65,18 @@ export function HolyWhiteboard(props) {
 
         postHash.current = postResponseData;
         userHash.current = userResponseData;
-        
+
         getPostsOrUsers(newUsers, newPosts);
 
     }
 
     async function getPostsOrUsers(newUsers, newPosts) {
-        
+
         let getNewUsersResponse;
         let getNewPostsResponse;
 
         try {
-            let getNewPosts; 
+            let getNewPosts;
             let getNewUsers;
             if (newPosts) {
                 getNewPosts = getPosts();
@@ -122,17 +123,28 @@ export function HolyWhiteboard(props) {
     }
 
     function fillUsers(userListingDTOArray) {
-        
+
         let newDictionary = {};
-        
+
         userListingDTOArray.forEach((user) => { newDictionary[user.id] = user.name; });
 
         setUsers(newDictionary);
 
     }
+
+    // function logOut() {
+    //     props.setUser({ user: null, email: null, id: null });
+    //     props.setPageState(pageStates.NOT_LOGGED_IN);
+    // }
     
     return (
         <div>
+            {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection" />}
+            {videoplayer.src !== "" ? <DisplayContent src={videoplayer.src} /> : <></>}
+            {posts.map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} />)}
+
+            <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
+            <h2 className="showUsername">Our holy member: {props.userInfo.user}</h2>
             {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection, action failed"/>}
             {videoplayer.src !== null ? <DisplayContent src={videoplayer.src} closeContent={videoplayer.reset}/> : <></>}
             <CreateNewPost user={props.userInfo} triggerUpdate={update} postFailed={setServerConnection}/>
@@ -210,5 +222,10 @@ function CreateNewPost(props) {
             <br /><button type="submit" className="newPostButton" disabled={submittingPost}>Submit</button>
         </ form>
     );
+
+    function logout() {
+        props.setPageState(pageStates.NOT_LOGGED_IN);
+        props.setUser({user: null, email: null, id: null});
+    }
 
 }
