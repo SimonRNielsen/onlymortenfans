@@ -11,6 +11,7 @@
   min-width: 129px;
   text-align: center;
   color: white;
+  border-radius: 8px;
 }
 
 .loginButton:hover {
