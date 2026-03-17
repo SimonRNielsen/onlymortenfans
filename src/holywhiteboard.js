@@ -12,7 +12,7 @@ export function HolyWhiteboard(props) {
     const [users, setUsers] = useState({});
     const postHash = useRef(null);
     const userHash = useRef(null);
-    const videoplayer = useClick("");
+    const videoplayer = useClick(null);
     console.log(props.userInfo);
 
     /* eslint-disable react-hooks/exhaustive-deps */
@@ -134,7 +134,7 @@ export function HolyWhiteboard(props) {
     return (
         <div>
             {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection, action failed"/>}
-            {videoplayer.src !== "" ? <DisplayContent src={videoplayer.src}/> : <></>}
+            {videoplayer.src !== null ? <DisplayContent src={videoplayer.src} closeContent={videoplayer.reset}/> : <></>}
             <CreateNewPost user={props.userInfo} triggerUpdate={update} postFailed={setServerConnection}/>
             {posts.slice().reverse().map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update} commentFailed={setServerConnection}/>)}
         </div>
@@ -171,13 +171,15 @@ function CreateNewPost(props) {
         }
         catch (error) {
             console.log(error);
+            props.postFailed(false);
             setSubmittingPost(false);
             return;
         }
-
+        
         setSubmittingPost(false);
-
+        
         if (!createPostResponse.ok) {
+            props.postFailed(false);
             return;
         }
 

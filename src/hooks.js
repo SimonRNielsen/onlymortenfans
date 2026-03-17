@@ -21,5 +21,9 @@ export function useClick(url) {
         setLink(newURL);
     }
 
-    return { src: link, onClick: handleClick}
+    function reset() {
+        setLink(null);
+    }
+
+    return { src: link, onClick: handleClick, reset}
 }
