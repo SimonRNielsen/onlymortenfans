@@ -120,6 +120,7 @@ export function Post(props) {
             <hr />
             <NewComment postID={postID} posterID={activeUser} triggerUpdate={props.triggerUpdate} commentFailed={props.commentFailed}/>
             {comments.map((comment) => <Comment key={comment.commentID} {...comment} users={props.users} user={props.user} triggerUpdate={props.triggerUpdate}/>)}
+            <hr />
         </div>
     );
 
@@ -214,8 +215,8 @@ function NewComment(props) {
             return;
         }
 
-        props.triggerUpdate();
         comment.value = "";
+        props.triggerUpdate();
 
     }
 

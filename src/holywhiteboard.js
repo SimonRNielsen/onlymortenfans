@@ -116,7 +116,7 @@ export function HolyWhiteboard(props) {
     }
 
     function fillPosts(postDTOArray) {
-
+        
         setPosts(postDTOArray);
 
     }
@@ -136,7 +136,7 @@ export function HolyWhiteboard(props) {
             {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection, action failed"/>}
             {videoplayer.src !== "" ? <DisplayContent src={videoplayer.src}/> : <></>}
             <CreateNewPost user={props.userInfo} triggerUpdate={update} postFailed={setServerConnection}/>
-            {posts.map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update} commentFailed={setServerConnection}/>)}
+            {posts.slice().reverse().map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update} commentFailed={setServerConnection}/>)}
         </div>
     );
 
@@ -181,9 +181,9 @@ function CreateNewPost(props) {
             return;
         }
 
-        props.triggerUpdate();
         content.value = "";
         post.value = "";
+        props.triggerUpdate();
 
     }
 
