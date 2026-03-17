@@ -38,13 +38,13 @@ export function CreateScreen(props) {
 
     return (
         <div className="loginScreen">
-            <form id="logingForm" className="loginForm">
+            <form id="logingForm" className="loginForm" onSubmit={handleSubmit}>
                 <h1>Be a part of Only Morten Fans</h1>
                 <label><b>You are on the rigth path to join us</b></label>
                 <label><b>Good bless your soul</b></label>
                 <br />
-            </form>
-            <form id="loginForm" className ="loginForm" onSubmit={handleSubmit}>
+            {/* </form>
+            <form id="loginForm" className ="loginForm" onSubmit={handleSubmit}> */}
                 <label className="loginLabel">Name:</label>
                 <input {...name} className="loginInput" />
                 <br />

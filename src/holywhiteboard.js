@@ -138,7 +138,7 @@ export function HolyWhiteboard(props) {
             {posts.map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} />)}
 
             <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
-            <h2 className="showUsername">{props.userInfo.user}</h2>
+            <h2 className="showUsername">Our holy member: {props.userInfo.user}</h2>
         </div>
     );
 

@@ -1,8 +1,13 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 .backgroundContainer {
-  /* display: flex;
-  justify-content: center; */
+  width: 100%;
+  height: 100vh;
   background-color: black;
-  /* align-items: center; */
 }
 
 .loginButton {
@@ -24,8 +29,17 @@
   right: 20px;
 }
 
+.loginScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
 .loginForm {
-  background-color: lightslategray;
+  background-color: #D1D0CE; /*Grey goose*/
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,27 +48,28 @@
 
 .row {
   display: flex;
+  height: 100%;
 }
 
 .column {
   flex: 1;
-    background-color: black;
+  /* min-width: 33.33%; */
+  /* min-height: 95vh; */
+  width: 100%;
+  min-height: 100%;
 }
 
 #leftColumn {
   background-image: url("./pics/sexiestmorten.png");
   background-repeat: no-repeat;
   transform: scaleX(-1);
-  min-height: 95vh;
-  min-width: 33.33%;
+
   background-position: -50px center;
 }
 
 #rightColumn {
   background-image: url("./pics/sexiestmorten.png");
   background-repeat: no-repeat;
-  min-height: 95vh;
-  min-width: 33.33%;
   background-position: -50px center;
 }
 

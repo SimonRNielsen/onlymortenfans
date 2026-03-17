@@ -72,7 +72,7 @@ export function LoginScreen(props) {
 
     return (
         <div className="loginScreen">
-            <form id="logingForm" className="loginForm">
+            <form id="logingForm" className="loginForm" onSubmit={handleSubmit}>
                 <h1>Welcome to Only Morten Fans</h1>
                 <label><b>This is a fan side for our beloved saint Morten of Tours</b></label>
                 <label><b>He is a true saint who protect us against the devil himself Goosifer</b></label>
@@ -80,8 +80,8 @@ export function LoginScreen(props) {
                 <label><b>If you are not already a menber come join us</b></label>
                 <label><b>And show your love and appreciation for his holy work</b></label>
                 <br />
-            </form>
-            <form id="loginForm" className="loginForm" onSubmit={handleSubmit}>
+            {/* </form>
+            <form id="loginForm" className="loginForm" onSubmit={handleSubmit}> */}
                 {serverError ? <ErrorOccured text="Error from server, please try again later" /> : <></>}
                 {inputValid ? <></> : <ErrorOccured text="Invalid email and/or password, make certain you entered the correct info and the user exists" />}
                 <label className="loginLabel">Email:</label>
