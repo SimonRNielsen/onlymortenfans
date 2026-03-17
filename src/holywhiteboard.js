@@ -132,21 +132,27 @@ export function HolyWhiteboard(props) {
     }
 
     return (
-        <div>
+        <>
+        <div className="holyWhiteboardHeader">
+            <h1 className="holywhiteboard">The holy whiteboard of Only Morten Fans</h1>
+        </div>
+        <div className="holyWhiteboardContent">
             {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection" />}
             {videoplayer.src !== "" ? <DisplayContent src={videoplayer.src} /> : <></>}
             {posts.map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} />)}
             
-            <h1 className="holywhiteboard">Holy whiteboard</h1>
+        </div>
+        <div>
             <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
             <h2 className="showUsername">Our holy member: {props.userInfo.user}</h2>
         </div>
+        </>
     );
 
     function logout() {
         props.setPageState(pageStates.NOT_LOGGED_IN);
         props.setUser({ user: null, email: null, id: null });
-        alert("You are nok logged out");
+        alert("You are now logged out");
     }
 
 }
