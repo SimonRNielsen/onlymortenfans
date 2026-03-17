@@ -37,6 +37,10 @@ export function DisplayContent(props) {
 
     function checkURL() {
 
+        if (!props.src) {
+            return null;
+        }
+
         let parsed = new URL(props.src);
 
         if (parsed.hostname === "youtu.be") {
@@ -50,10 +54,15 @@ export function DisplayContent(props) {
         return null;
     }
 
+    function closeContent() {
+        props.closeContent()
+    }
+
     return (
-        <>
+        <div className="contentOverlay">
+            <button className="closeContentButton" onClick={closeContent}>x</button>
             {isVideo ? <VideoDisplayer video={videoID}/> : <ImageDisplayer {...props}/>}
-        </>
+        </div>
     );
 
 }

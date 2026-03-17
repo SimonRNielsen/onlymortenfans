@@ -23,6 +23,9 @@ export function Post(props) {
     let notPostOwner = activeUser !== posterID;
 
     function checkURL() {
+        if (!pictureURL) {
+            return null;
+        }
 
         let parsed = new URL(pictureURL);
 
@@ -115,8 +118,9 @@ export function Post(props) {
             <label className="opinionLabel">Likes:</label><div className="likeContainer" onClick={() => setOpinion(true)}><img src={like} alt="likes"/><div className="likeText">{likes.length}</div></div>
             <label className="opinionLabel">Dislikes</label><div className="likeContainer" onClick={() => setOpinion(false)}><img src={dislike} alt="dislikes"/><div className="dislikeText">{dislikes.length}</div></div>
             <hr />
-            <NewComment postID={postID} posterID={activeUser} triggerUpdate={props.triggerUpdate}/>
+            <NewComment postID={postID} posterID={activeUser} triggerUpdate={props.triggerUpdate} commentFailed={props.commentFailed}/>
             {comments.map((comment) => <Comment key={comment.commentID} {...comment} users={props.users} user={props.user} triggerUpdate={props.triggerUpdate}/>)}
+            <hr />
         </div>
     );
 
@@ -201,16 +205,18 @@ function NewComment(props) {
         catch (error) {
             console.log(error);
             setPostPending(false);
+            props.commentFailed(false);
             return;
         }
 
         setPostPending(false);
         if (!newCommentResponse.ok) {
+            props.commentFailed(false);
             return;
         }
 
+        comment.reset();
         props.triggerUpdate();
-        comment.value = "";
 
     }
 

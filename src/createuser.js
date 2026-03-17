@@ -109,9 +109,9 @@ export function CreateScreen(props) {
                 return;
             }
 
-            name.value = "";
-            email.value = "";
-            password.value = "";
+            name.reset();
+            email.reset();
+            password.reset();
         }
 
         let responseData = await response.json();

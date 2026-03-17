@@ -7,7 +7,11 @@ export function useInput(initialValue) {
         setInputValue(event.target.value);
     }
 
-    return { value: inputValue, onChange: handleChange};
+    function reset() {
+        setInputValue(initialValue);
+    }
+
+    return { value: inputValue, onChange: handleChange, reset};
 }
 
 export function useClick(url) {
@@ -17,5 +21,9 @@ export function useClick(url) {
         setLink(newURL);
     }
 
-    return { src: link, onClick: handleClick}
+    function reset() {
+        setLink(null);
+    }
+
+    return { src: link, onClick: handleClick, reset}
 }

@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Post } from "./components/post";
 import { DisplayContent } from "./components/videoplayer";
-import { checkUsers, getUsers, getPosts, updatePosts } from "./api/api";
-import { useClick } from "./hooks";
+import { checkUsers, getUsers, getPosts, updatePosts, addNewPost } from "./api/api";
+import { useClick, useInput } from "./hooks";
 import { ErrorOccured } from "./login";
-// import { pageStates } from "./enums";
 import "./styles.css"
 import { pageStates } from "./enums";
 
@@ -14,7 +13,7 @@ export function HolyWhiteboard(props) {
     const [users, setUsers] = useState({});
     const postHash = useRef(null);
     const userHash = useRef(null);
-    const videoplayer = useClick("");
+    const videoplayer = useClick(null);
     console.log(props.userInfo);
 
     /* eslint-disable react-hooks/exhaustive-deps */
@@ -44,6 +43,8 @@ export function HolyWhiteboard(props) {
                 setServerConnection(false);
                 return;
             }
+
+            setServerConnection(true);
 
         }
 
@@ -116,7 +117,7 @@ export function HolyWhiteboard(props) {
     }
 
     function fillPosts(postDTOArray) {
-
+        
         setPosts(postDTOArray);
 
     }
@@ -131,6 +132,11 @@ export function HolyWhiteboard(props) {
 
     }
 
+    function logout() {
+        props.setPageState(pageStates.NOT_LOGGED_IN);
+        props.setUser({user: null, email: null, id: null});
+    }
+    
     return (
         <>
         <div className="holyWhiteboardHeader">
@@ -145,6 +151,10 @@ export function HolyWhiteboard(props) {
         <div>
             <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
             <h2 className="showUsername">Our holy member: {props.userInfo.user}</h2>
+            {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection, action failed"/>}
+            {videoplayer.src !== null ? <DisplayContent src={videoplayer.src} closeContent={videoplayer.reset}/> : <></>}
+            <CreateNewPost user={props.userInfo} triggerUpdate={update} postFailed={setServerConnection}/>
+            {posts.slice().reverse().map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update} commentFailed={setServerConnection}/>)}
         </div>
         </>
     );
@@ -154,5 +164,75 @@ export function HolyWhiteboard(props) {
         props.setUser({ user: null, email: null, id: null });
         alert("You are now logged out");
     }
+}
+
+function CreateNewPost(props) {
+    let [submittingPost, setSubmittingPost] = useState(false);
+    let content = useInput("");
+    let post = useInput("");
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        if (submittingPost) {
+            return;
+        }
+
+        setSubmittingPost(true);
+
+        let validLink = validateLink();
+
+        let createPostDTO = {
+            posterID: props.user.id,
+            post: post.value,
+            pictureURL: validLink
+        };
+
+        let createPostResponse;
+
+        try {
+            createPostResponse = await addNewPost(createPostDTO);
+        }
+        catch (error) {
+            console.log(error);
+            props.postFailed(false);
+            setSubmittingPost(false);
+            return;
+        }
+        
+        setSubmittingPost(false);
+        
+        if (!createPostResponse.ok) {
+            props.postFailed(false);
+            return;
+        }
+
+        content.reset();
+        post.reset();
+        props.triggerUpdate();
+
+    }
+
+    function validateLink() {
+        if (!content.value) {
+            return null;
+        }
+
+        try {
+            new URL(content.value);
+            return content.value;
+        } 
+        catch {
+            return null;
+        }
+    }
+
+    return(
+        <form className="newPostForm" onSubmit={handleSubmit}>
+            <label>Anything interesting to post?</label><br /><textarea className="newPostText" {...post}/><br />
+            <label>Youtube video or image link:</label><br /><input className="newPostInput" {...content}/><br />
+            <br /><button type="submit" className="newPostButton" disabled={submittingPost}>Submit</button>
+        </ form>
+    );
 
 }
