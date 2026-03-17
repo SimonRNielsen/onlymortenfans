@@ -132,17 +132,13 @@ export function HolyWhiteboard(props) {
 
     }
 
-    // function logOut() {
-    //     props.setUser({ user: null, email: null, id: null });
-    //     props.setPageState(pageStates.NOT_LOGGED_IN);
-    // }
+    function logout() {
+        props.setPageState(pageStates.NOT_LOGGED_IN);
+        props.setUser({user: null, email: null, id: null});
+    }
     
     return (
         <div>
-            {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection" />}
-            {videoplayer.src !== "" ? <DisplayContent src={videoplayer.src} /> : <></>}
-            {posts.map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} />)}
-
             <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
             <h2 className="showUsername">Our holy member: {props.userInfo.user}</h2>
             {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection, action failed"/>}
@@ -222,10 +218,5 @@ function CreateNewPost(props) {
             <br /><button type="submit" className="newPostButton" disabled={submittingPost}>Submit</button>
         </ form>
     );
-
-    function logout() {
-        props.setPageState(pageStates.NOT_LOGGED_IN);
-        props.setUser({user: null, email: null, id: null});
-    }
 
 }
