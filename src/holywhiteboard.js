@@ -140,8 +140,8 @@ export function HolyWhiteboard(props) {
     
     return (
         <>
-        <div className="holyWhiteboardHeader">
-            {/* <h1 className="holywhiteboard">The holy whiteboard of Only Morten Fans</h1> */}
+        <div>
+            <h1 className="holywhiteboardHeader">The holy whiteboard of Only Morten Fans</h1>
         </div>
         <div className="holyWhiteboardContent">
             {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection, action failed"/>}

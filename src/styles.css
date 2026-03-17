@@ -83,23 +83,18 @@ html, body {
   right: 160px;
 }
 
-.holywhiteboard {
-  position: fixed;
-  background-color: black;
-  height: 80px;
-  /* color: white; */
-}
-
 .holyWhiteboardContent 
 {
   background-color: #D1D0CE; /*Grey goose*/
-  top: 80px;
-  min-height:max-content;
+  margin-top: 100px;
 }
 
 .holyWhiteboardHeader {
+  background-color: black;
   color: white;
-  width: 100%;
+  width: 33.33%;
+  position: fixed;
+  height: 100px;
 }
 
 
