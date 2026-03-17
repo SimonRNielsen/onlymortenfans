@@ -86,6 +86,10 @@ html, body {
   right: 160px;
 }
 
+.holywhiteboard {
+  position: fixed;
+}
+
 .likeContainer {
   position: relative;
   display: inline-block;
