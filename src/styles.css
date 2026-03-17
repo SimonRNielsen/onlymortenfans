@@ -85,3 +85,67 @@ html, body {
   top: 20px;
   right: 160px;
 }
+
+.likeContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.likeContainer img {
+  width: 30px;
+  height: 30px;
+}
+
+.likeText {
+  position: absolute;
+  top: 10%;
+  left: 40%;
+  color: rgb(255, 12, 182);
+  font-weight: bolder;
+  font-size: 25px;
+}
+
+.dislikeText {
+  position: absolute;
+  top: 10%;
+  left: 40%;
+  color: rgb(240, 216, 7);
+  font-weight: bolder;
+  font-size: 25px;
+}
+
+.newCommentText {
+  resize: none;
+}
+
+/* .likeContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.likeContainer img {
+  width: 30px;
+  height: 30px;
+}
+
+.likeText {
+  position: absolute;
+  top: 10%;
+  left: 40%;
+  color: rgb(255, 12, 182);
+  font-weight: bolder;
+  font-size: 25px;
+}
+
+.dislikeText {
+  position: absolute;
+  top: 10%;
+  left: 40%;
+  color: rgb(240, 216, 7);
+  font-weight: bolder;
+  font-size: 25px;
+}
+
+.newCommentText {
+  resize: none;
+} */
