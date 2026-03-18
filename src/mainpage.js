@@ -3,6 +3,7 @@ import { pageStates } from "./enums";
 import { LoginScreen } from "./login";
 import { HolyWhiteboard } from "./holywhiteboard";
 import { CreateScreen } from "./createuser";
+import {ProfileScreen } from "./profileside";
 import "./styles.css"
 
 export function MainPage() {
@@ -21,6 +22,7 @@ export function MainPage() {
                     {pageState === pageStates.NOT_LOGGED_IN ? <LoginScreen setPageState={setPageState} setUser={setUser} /> : <></>}
                     {pageState === pageStates.LOGGED_IN ? <HolyWhiteboard setPageState={setPageState} setUser={setUser} userInfo={userInfo} /> : <></>}
                     {pageState === pageStates.CREATE_USER ? <CreateScreen setPageState={setPageState} setUser={setUser} /> : <></>}
+                    {pageState ===pageStates.PROFILE_SIDE ? <ProfileScreen setPageState={setPageState} setUser={setUser} userInfo={userInfo} /> : <></>}
                 </>
 
             </div>

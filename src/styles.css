@@ -26,7 +26,19 @@ body {
 
 #logoutButton {
   position: fixed;
+  top: 90px;
+  right: 20px;
+}
+
+#profilButton {
+  position: fixed;
   top: 20px;
+  right: 20px;
+}
+
+#safeButton {
+  position: fixed;
+  top: 160px;
   right: 20px;
 }
 
@@ -81,25 +93,35 @@ body {
 
 #middleColumn {
   position: fixed;
-  top: 0;           /* start fra toppen af viewport */
-  bottom: 0;        /* slut ved bunden */
-  left: 33.33%;     /* starter efter venstre kolonne */
-  right: 33.33%;    /* stopper før højre kolonne */
+  top: 0;
+  /* start fra toppen af viewport */
+  bottom: 0;
+  /* slut ved bunden */
+  left: 33.33%;
+  /* starter efter venstre kolonne */
+  right: 33.33%;
+  /* stopper før højre kolonne */
   z-index: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;  /* centrerer børn horisontalt */
-  overflow-y: auto;     /* 🔑 gør kolonnen scrollable */
-  -webkit-overflow-scrolling: touch; /* glidende scroll på mobil */
-  padding-top: 20px;    /* lidt luft øverst */
+  align-items: center;
+  /* centrerer børn horisontalt */
+  overflow-y: auto;
+  /* 🔑 gør kolonnen scrollable */
+  -webkit-overflow-scrolling: touch;
+  /* glidende scroll på mobil */
+  padding-top: 20px;
+  /* lidt luft øverst */
   background-color: transparent;
 }
 
 .holyWhiteboardContent {
   background-color: #D1D0CE;
   margin-top: 20px;
-  width: 100%;   /* fylder hele middleColumn */
-  max-width: none; /* eller sæt en begrænsning, hvis ønsket */
+  width: 100%;
+  /* fylder hele middleColumn */
+  max-width: none;
+  /* eller sæt en begrænsning, hvis ønsket */
 }
 
 .showUsername {
@@ -108,7 +130,6 @@ body {
   top: 20px;
   right: 160px;
 }
-
 
 .holywhiteboardHeader {
   background-color: black;
@@ -120,6 +141,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.profilInput {
+  width: 98%;
 }
 
 .likeContainer {
@@ -140,10 +165,10 @@ body {
   font-weight: bolder;
   font-size: 25px;
   text-shadow:
-        -1px -1px 0 black,
-         1px -1px 0 black,
-        -1px  1px 0 black,
-         1px  1px 0 black;
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    1px 1px 0 black;
 }
 
 .dislikeText {
@@ -154,10 +179,10 @@ body {
   font-weight: bolder;
   font-size: 25px;
   text-shadow:
-        -1px -1px 0 black,
-         1px -1px 0 black,
-        -1px  1px 0 black,
-         1px  1px 0 black;
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    1px 1px 0 black;
 }
 
 .newCommentText {
@@ -169,27 +194,27 @@ body {
 }
 
 .contentOverlay {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9998;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9998;
 }
 
 .closeContentButton {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    z-index: 10000;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 10000;
 }
 
 .enlargedPicture,
@@ -198,4 +223,4 @@ body {
   width: 75vw;
   object-fit: contain;
   z-index: 9999;
-} 
+}
