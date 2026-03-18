@@ -5,6 +5,9 @@ body {
   height: 100%;
   background-color: black;
 }
+input, textarea {
+  padding: 5px;
+}
 
 .backgroundContainer {
   width: 100%;
@@ -230,4 +233,14 @@ body {
   width: 75vw;
   object-fit: contain;
   z-index: 9999;
+}
+.postImage {
+  width:100%;
+  display: block;
+}
+.post {
+  margin-top: 12px;
+}
+.postFrame, .newPostForm {
+  padding: 18px;
 }

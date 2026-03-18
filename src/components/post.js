@@ -120,7 +120,7 @@ export function Post(props) {
             <h3 onClick={seeOthersProfile}>{posterName}</h3><button hidden={notPostOwner} disabled={sentDeleteRequest} onClick={deleteThisPost}>x</button>
             <hr />
             {pictureURL ? <img className="postImage" onClick={() => props.onClick(pictureURL)} src={video === null ? pictureURL : `https://img.youtube.com/vi/${video}/hqdefault.jpg`} alt="" /> : <></>}
-            <div>{post}</div>
+            <div className="post">{post}</div>
             <label className="opinionLabel">Likes:</label><div className="likeContainer" onClick={() => setOpinion(true)}><img src={like} alt="likes" /><div className="likeText">{likes.length}</div></div>
             <label className="opinionLabel">Dislikes</label><div className="likeContainer" onClick={() => setOpinion(false)}><img src={dislike} alt="dislikes" /><div className="dislikeText">{dislikes.length}</div></div>
             <hr />
