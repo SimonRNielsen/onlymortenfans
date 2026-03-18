@@ -4,6 +4,7 @@ import { LoginScreen } from "./login";
 import { HolyWhiteboard } from "./holywhiteboard";
 import { CreateScreen } from "./createuser";
 import {ProfileScreen } from "./profileside";
+import {OtherProfileScreen} from "./otherprofil";
 import "./styles.css"
 
 export function MainPage() {
@@ -23,6 +24,7 @@ export function MainPage() {
                     {pageState === pageStates.LOGGED_IN ? <HolyWhiteboard setPageState={setPageState} setUser={setUser} userInfo={userInfo} /> : <></>}
                     {pageState === pageStates.CREATE_USER ? <CreateScreen setPageState={setPageState} setUser={setUser} /> : <></>}
                     {pageState ===pageStates.PROFILE_SIDE ? <ProfileScreen setPageState={setPageState} setUser={setUser} userInfo={userInfo} /> : <></>}
+                    {pageState ===pageStates.OTHER_PROFILE_SIDE ? <OtherProfileScreen setPageState={setPageState} setUser={setUser} userInfo={userInfo} /> : <></>}
                 </>
 
             </div>

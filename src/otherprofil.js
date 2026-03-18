@@ -3,9 +3,8 @@ import { useInput } from "./hooks";
 import { pageStates } from "./enums";
 import "./styles.css"
 
-export function ProfileScreen(props) {
-
-    let profilepicture = useInput("");
+export function OtherProfileScreen(props) { 
+let profilepicture = useInput("");
     let hide = !profilepicture.value.includes(".jpg");
     let mortenlove = useInput("");
     const textArearRef = useRef(null);
@@ -20,9 +19,6 @@ export function ProfileScreen(props) {
         alert("You are now logged out");
     }
 
-    function safeProfil() {
-        alert("Your profil is now save");
-    }
 
     function handleInput(e) {
         const el = textArearRef.current;
@@ -33,10 +29,9 @@ export function ProfileScreen(props) {
     return (
         <>
             <div>
-                <h1 className="holywhiteboardHeader">The profil of our {props.userInfo.user}</h1>
+                <h1 className="holywhiteboardHeader">En anden profil end din muhahahahah</h1>
             </div>
             <div className="holyWhiteboardContent">
-                <button className="loginButton" id="safeButton" onClick={safeProfil}>Save</button>
                 <label><b>Name:</b> {props.userInfo.user}</label>
                 <br />
                 <label><b>Email:</b> {props.userInfo.email}</label>
@@ -52,7 +47,6 @@ export function ProfileScreen(props) {
                 <input {...profilepicture} className="profilInput"></input>
                 <img src={profilepicture.value} hidden={hide} className="profilPicture" alt=""></img>
                 <br />
-
             </div>
             <div>
                 <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>

@@ -3,6 +3,7 @@ import { addComment, addOpinion, deleteComment, deletePost } from "../api/api";
 import like from "../pics/glorie2.png";
 import dislike from "../pics/death-goose_small.png";
 import { useInput } from "../hooks";
+import { pageStates } from "../enums";
 import "../styles.css"
 
 export function Post(props) {
@@ -94,7 +95,7 @@ export function Post(props) {
         try {
             opinionResponse = await addOpinion(opinionDTO);
         }
-        
+
         catch (error) {
             console.log(error);
             return;
@@ -109,17 +110,22 @@ export function Post(props) {
 
     }
 
+    function seeOthersProfile() {
+        props.setPageState(pageStates.OTHER_PROFILE_SIDE);
+    }
+
+
     return (
         <div className="postFrame" hidden={deleteSent}>
-            <h3>{posterName}</h3><button hidden={notPostOwner} disabled={sentDeleteRequest} onClick={deleteThisPost}>x</button>
+            <h3 onClick={seeOthersProfile}>{posterName}</h3><button hidden={notPostOwner} disabled={sentDeleteRequest} onClick={deleteThisPost}>x</button>
             <hr />
             {pictureURL ? <img className="postImage" onClick={() => props.onClick(pictureURL)} src={video === null ? pictureURL : `https://img.youtube.com/vi/${video}/hqdefault.jpg`} alt="" /> : <></>}
             <div>{post}</div>
-            <label className="opinionLabel">Likes:</label><div className="likeContainer" onClick={() => setOpinion(true)}><img src={like} alt="likes"/><div className="likeText">{likes.length}</div></div>
-            <label className="opinionLabel">Dislikes</label><div className="likeContainer" onClick={() => setOpinion(false)}><img src={dislike} alt="dislikes"/><div className="dislikeText">{dislikes.length}</div></div>
+            <label className="opinionLabel">Likes:</label><div className="likeContainer" onClick={() => setOpinion(true)}><img src={like} alt="likes" /><div className="likeText">{likes.length}</div></div>
+            <label className="opinionLabel">Dislikes</label><div className="likeContainer" onClick={() => setOpinion(false)}><img src={dislike} alt="dislikes" /><div className="dislikeText">{dislikes.length}</div></div>
             <hr />
-            <NewComment postID={postID} posterID={activeUser} triggerUpdate={props.triggerUpdate} commentFailed={props.commentFailed}/>
-            {comments.map((comment) => <Comment key={comment.commentID} {...comment} users={props.users} user={props.user} triggerUpdate={props.triggerUpdate}/>)}
+            <NewComment postID={postID} posterID={activeUser} triggerUpdate={props.triggerUpdate} commentFailed={props.commentFailed} />
+            {comments.map((comment) => <Comment key={comment.commentID} {...comment} users={props.users} user={props.user} triggerUpdate={props.triggerUpdate} />)}
             <hr />
         </div>
     );
@@ -146,7 +152,7 @@ function Comment(props) {
         };
 
         let deleteCommentResponse;
-        
+
         try {
             deleteCommentResponse = await deleteComment(deleteCommentDTO);
         }
@@ -168,7 +174,7 @@ function Comment(props) {
 
     }
 
-    return(
+    return (
         <div className="commentFrame" hidden={deleteSent}>
             <label className="commentPoster"><b>{props.users[props.posterID]}:</b></label><button onClick={deleteThisComment} hidden={notCommentOwner} disabled={sentDeleteRequest}>x</button>
             <p className="commentText">{props.comment}</p>
@@ -220,10 +226,10 @@ function NewComment(props) {
 
     }
 
-    return(
+    return (
         <form className="newCommentForm" onSubmit={createComment}>
-            <textarea className="newCommentText" {...comment}/>
-            <br/>
+            <textarea className="newCommentText" {...comment} />
+            <br />
             <button type="submit" disabled={postPending}>Send</button>
         </form>
     );
