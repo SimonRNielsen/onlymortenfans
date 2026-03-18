@@ -36,6 +36,8 @@ export function LoginScreen(props) {
         event.preventDefault(); //Ellers refresher submit hjemmesiden
         setInputDisabled(true);
 
+        alert("Test");
+
         let loginDTO = {
             email: email.value,
             password: password.value
@@ -47,6 +49,7 @@ export function LoginScreen(props) {
             response = await login(loginDTO);
             if (!response || !response.ok) {
                 setInputValid(false);
+                setInputDisabled(false);
                 return;
             }
         }
@@ -62,7 +65,7 @@ export function LoginScreen(props) {
         password.reset();
 
         let responseData = await response.json();
-
+        
         props.setPageState(pageStates.LOGGED_IN);
         props.setUser({ user: responseData.name, email: responseData.email, id: responseData.id });
         setInputValid(true);
@@ -72,7 +75,7 @@ export function LoginScreen(props) {
 
     return (
         <div className="loginScreen">
-            <form id="logingForm" className="loginForm" onSubmit={handleSubmit}>
+            <form id="loginForm" className="loginForm" onSubmit={handleSubmit}>
                 <h1>Welcome to Only Morten Fans</h1>
                 <label><b>This is a fan side for our beloved saint Morten of Tours</b></label>
                 <label><b>He is a true saint who protect us against the devil himself Goosifer</b></label>
@@ -96,7 +99,7 @@ export function LoginScreen(props) {
                 <br />
                 <button type="submit" disabled={inputDisabled || !validInputs()} className="loginButton">Login</button>
                 <br />
-                <button disabled={inputDisabled} className="loginButton" onClick={switchToCreateUser}>Create new user</button>
+                <button disabled={inputDisabled} className="loginButton" onClick={switchToCreateUser} type="button">Create new user</button>
             </form>
         </ div>
     );
