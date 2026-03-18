@@ -9,7 +9,7 @@ export function CreateScreen(props) {
 
     let email = useInput("");
     let password = useInput("");
-    let [inputDisabled, setInputDiabled] = useState(false);
+    let [inputDisabled, setInputDisabled] = useState(false);
     let name = useInput("");
     let repeatpassword = useInput("");
 
@@ -27,7 +27,6 @@ export function CreateScreen(props) {
     // test holder de 2 strings op mod hinanden
     // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/ -> /^ = start af streng, (?=.*[a-z]) = indeholder et lille bogstav, (?=.*[A-Z]) = indeholder et stort bogstav, (?=.*\d) = indeholder et tal, .{8,} er mindst 8 i længden, $/ = slut
 
-
     function validInputs() {
 
         if (validEmail && validPassword) {
@@ -40,7 +39,7 @@ export function CreateScreen(props) {
 
     return (
         <div className="loginScreen">
-            <form id="logingForm" className="loginForm" onSubmit={handleSubmit}>
+            <form id="loginForm" className="loginForm" onSubmit={handleSubmit}>
                 <h1>Be a part of Only Morten Fans</h1>
                 <label><b>You are on the rigth path to join us</b></label>
                 <label><b>Good bless your soul</b></label>
@@ -67,7 +66,7 @@ export function CreateScreen(props) {
                 <br />
                 <button type="submit" disabled={inputDisabled || !validInputs()} className="loginButton">Create menber</button>
                 <br />
-                <button disabled={inputDisabled} className="loginButton" onClick={switchToLogin}>Back to login</button>
+                <button disabled={inputDisabled} className="loginButton" onClick={switchToLogin} type="button">Back to login</button>
             </form>
         </ div>
     );
@@ -92,7 +91,7 @@ export function CreateScreen(props) {
 
     async function handleSubmit(event) {
         event.preventDefault(); //Ellers refresher submit hjemmesiden
-        setInputDiabled(true);
+        setInputDisabled(true);
 
         let createUserDTO = {
             name: name.value,
@@ -101,17 +100,11 @@ export function CreateScreen(props) {
         }
 
         let response;
-
+        
         try {
+            
             response = await create(createUserDTO);
-        }
-        catch (error) {
-            console.log(error);
-            return;
-        }
-        finally {
-            setInputDiabled(false);
-
+            
             if (!response.ok) {
                 return;
             }
@@ -119,6 +112,13 @@ export function CreateScreen(props) {
             name.reset();
             email.reset();
             password.reset();
+
+        }
+        catch (error) {
+            console.log(error);
+        }
+        finally {
+            setInputDisabled(false);
         }
 
         let responseData = await response.json();
