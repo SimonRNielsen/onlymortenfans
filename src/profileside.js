@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useInput } from "./hooks";
 import { pageStates } from "./enums";
 import "./styles.css"
 import { EmailTooltip, PasswordTooltip } from "./login";
 import { create } from "./api/api";
-import undercover from "./pics/underCoverMortenSling0.png";
 
 export function ProfileScreen(props) {
 
     let profilepicture = useInput("");
     let hide = !profilepicture.value.includes(".jpg");
     let mortenlove = useInput("");
+    const textArearRef = useRef(null);
 
     function holyboard() {
         props.setPageState(pageStates.LOGGED_IN);
@@ -23,8 +23,14 @@ export function ProfileScreen(props) {
     }
 
     function safeProfil () {
-        alert("Your profil is now safe");
+        alert("Your profil is now save");
     }
+
+function handleInput(e) {
+    const el = textArearRef.current;
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+}
 
     return (
         <>
@@ -32,20 +38,23 @@ export function ProfileScreen(props) {
                 <h1 className="holywhiteboardHeader">The profil of our {props.userInfo.user}</h1>
             </div>
             <div className="holyWhiteboardContent">
-                <label>Name: {props.userInfo.user}</label>
+                <button className="loginButton" id="safeButton" onClick={safeProfil}>Save</button>
+                <label><b>Name:</b> {props.userInfo.user}</label>
                 <br />
-                <label>Email: {props.userInfo.email}</label>
+                <label><b>Email:</b> {props.userInfo.email}</label>
                 <br />
-                <label {...mortenlove}>What do you love most about Morten</label>
+                <label><b>Member since:</b> xxx</label>
                 <br />
-                <input className="profilInput"></input>
+                <label {...mortenlove}><b>What do you love most about Morten</b></label>
                 <br />
-                <label>Profil picture - use a url:</label>
+                <textarea ref={textArearRef} className="profilInput" onInput={handleInput}></textarea>
+                <br />
+                <label><b>Profil picture - use a url:</b></label>
                 <br />
                 <input {...profilepicture} className="profilInput"></input>
-                <img src={profilepicture.value} hidden={hide}></img>
+                <img src={profilepicture.value} hidden={hide} className="profilPicture"></img>
                 <br />
-                <button className="loginButton" id="safeButton" onClick={safeProfil}>Safe</button>
+                
             </div>
             <div>
                 <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>

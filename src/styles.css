@@ -37,9 +37,8 @@ body {
 }
 
 #safeButton {
-  position: fixed;
-  top: 160px;
-  right: 20px;
+  display: block;
+  margin: 0 auto;
 }
 
 .loginScreen {
@@ -145,6 +144,14 @@ body {
 
 .profilInput {
   width: 98%;
+  /* min-height: 40px; */
+  height: auto;
+  overflow: auto;
+  resize: vertical;
+}
+
+.profilPicture {
+  width: 100%;
 }
 
 .likeContainer {
