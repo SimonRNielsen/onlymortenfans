@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { useInput } from "./hooks";
 import { pageStates } from "./enums";
 import "./styles.css"
-import { EmailTooltip, PasswordTooltip } from "./login";
-import { create } from "./api/api";
+// import { EmailTooltip, PasswordTooltip } from "./login";
+// import { create } from "./api/api";
 
 export function ProfileScreen(props) {
 
@@ -52,7 +52,7 @@ function handleInput(e) {
                 <label><b>Profil picture - use a url:</b></label>
                 <br />
                 <input {...profilepicture} className="profilInput"></input>
-                <img src={profilepicture.value} hidden={hide} className="profilPicture"></img>
+                <img src={profilepicture.value} hidden={hide} className="profilPicture" alt=""></img>
                 <br />
                 
             </div>
