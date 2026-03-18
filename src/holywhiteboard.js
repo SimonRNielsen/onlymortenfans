@@ -117,7 +117,7 @@ export function HolyWhiteboard(props) {
     }
 
     function fillPosts(postDTOArray) {
-        
+
         setPosts(postDTOArray);
 
     }
@@ -134,25 +134,30 @@ export function HolyWhiteboard(props) {
 
     function logout() {
         props.setPageState(pageStates.NOT_LOGGED_IN);
-        props.setUser({user: null, email: null, id: null});
+        props.setUser({ user: null, email: null, id: null });
         alert("You are now logged out");
     }
-    
+
+    function profileSetting() {
+        props.setPageState(pageStates.PROFILE_SIDE);
+    }
+
     return (
         <>
-        <div>
-            <h1 className="holywhiteboardHeader">The holy whiteboard of Only Morten Fans</h1>
-        </div>
-        <div className="holyWhiteboardContent">
-            {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection, action failed"/>}
-            {videoplayer.src !== null ? <DisplayContent src={videoplayer.src} closeContent={videoplayer.reset}/> : <></>}
-            <CreateNewPost user={props.userInfo} triggerUpdate={update} postFailed={setServerConnection}/>
-            {posts.slice().reverse().map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update} commentFailed={setServerConnection}/>)}
-        </div>
-        <div>
-            <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
-            <h2 className="showUsername">Our holy member: {props.userInfo.user}</h2>
-        </div>
+            <div>
+                <h1 className="holywhiteboardHeader">The holy whiteboard of Only Morten Fans</h1>
+            </div>
+            <div className="holyWhiteboardContent">
+                {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection, action failed" />}
+                {videoplayer.src !== null ? <DisplayContent src={videoplayer.src} closeContent={videoplayer.reset} /> : <></>}
+                <CreateNewPost user={props.userInfo} triggerUpdate={update} postFailed={setServerConnection} />
+                {posts.slice().reverse().map((post) => <Post key={post.postID} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update} commentFailed={setServerConnection} />)}
+            </div>
+            <div>
+                <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
+                <button className="loginButton" id="profilButton" onClick={profileSetting}>Profil</button>
+                <h2 className="showUsername">Our holy member: {props.userInfo.user}</h2>
+            </div>
         </>
     );
 
@@ -191,9 +196,9 @@ function CreateNewPost(props) {
             setSubmittingPost(false);
             return;
         }
-        
+
         setSubmittingPost(false);
-        
+
         if (!createPostResponse.ok) {
             props.postFailed(false);
             return;
@@ -213,16 +218,16 @@ function CreateNewPost(props) {
         try {
             new URL(content.value);
             return content.value;
-        } 
+        }
         catch {
             return null;
         }
     }
 
-    return(
+    return (
         <form className="newPostForm" onSubmit={handleSubmit}>
-            <label>Anything interesting to post?</label><br /><textarea className="newPostText" {...post}/><br />
-            <label>Youtube video or image link:</label><br /><input className="newPostInput" {...content}/><br />
+            <label>Anything interesting to post?</label><br /><textarea className="newPostText" {...post} /><br />
+            <label>Youtube video or image link:</label><br /><input className="newPostInput" {...content} /><br />
             <br /><button type="submit" className="newPostButton" disabled={submittingPost}>Submit</button>
         </ form>
     );
