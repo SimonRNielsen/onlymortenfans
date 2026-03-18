@@ -36,8 +36,6 @@ export function LoginScreen(props) {
         event.preventDefault(); //Ellers refresher submit hjemmesiden
         setInputDisabled(true);
 
-        alert("Test");
-
         let loginDTO = {
             email: email.value,
             password: password.value
