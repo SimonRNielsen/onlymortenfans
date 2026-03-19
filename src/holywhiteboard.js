@@ -14,7 +14,6 @@ export function HolyWhiteboard(props) {
     const postHash = useRef(null);
     const userHash = useRef(null);
     const videoplayer = useClick(null);
-    console.log(props.userInfo);
 
     /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
@@ -127,7 +126,7 @@ export function HolyWhiteboard(props) {
         let newDictionary = {};
         
         userListingDTOArray.forEach((user) => { newDictionary[user.id] = {name: user.name, pictureURL: user.pictureURL, catchPhrase: user.catchPhrase, joinTime: user.joinTime }; });
-        
+
         setUsers(newDictionary);
 
     }
