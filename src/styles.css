@@ -197,10 +197,16 @@ input, textarea {
 
 .newCommentText {
   resize: none;
+  width: 100%;
 }
 
 .newPostText {
   resize: none;
+  width: 100%;
+}
+
+.newPostInput {
+  width: 100%;
 }
 
 .contentOverlay {
