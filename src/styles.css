@@ -5,6 +5,9 @@ body {
   height: 100%;
   background-color: black;
 }
+input, textarea {
+  padding: 5px;
+}
 
 .backgroundContainer {
   width: 100%;
@@ -118,9 +121,8 @@ body {
   background-color: #D1D0CE;
   margin-top: 20px;
   width: 100%;
-  /* fylder hele middleColumn */
-  max-width: none;
-  /* eller sæt en begrænsning, hvis ønsket */
+  padding: 18px;
+  box-sizing: border-box;
 }
 
 .showUsername {
@@ -141,6 +143,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 
 .profilInput {
   width: 98%;
@@ -194,10 +197,16 @@ body {
 
 .newCommentText {
   resize: none;
+  width: 100%;
 }
 
 .newPostText {
   resize: none;
+  width: 100%;
+}
+
+.newPostInput {
+  width: 100%;
 }
 
 .contentOverlay {
@@ -230,4 +239,11 @@ body {
   width: 75vw;
   object-fit: contain;
   z-index: 9999;
+}
+.postImage {
+  width:100%;
+  display: block;
+}
+.post {
+  margin-top: 12px;
 }

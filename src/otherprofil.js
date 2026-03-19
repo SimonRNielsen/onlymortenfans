@@ -1,17 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useInput } from "./hooks";
 import { pageStates } from "./enums";
-import { updateProfile } from "./api/api";
 import "./styles.css"
 
-export function ProfileScreen(props) {
-
-    let profilepicture = useInput("");
+export function OtherProfileScreen(props) { 
+let profilepicture = useInput("");
     let hide = !profilepicture.value.includes(".jpg");
     let mortenlove = useInput("");
     const textArearRef = useRef(null);
-    let [savingProfile, setSavingProfile] = useState(false);
-    let [catchPhrase, setCatchPhrase] = useState("");
+    let otherprofil = props.posterID;
+
+    console.log(otherprofil);
 
     function holyboard() {
         props.setPageState(pageStates.LOGGED_IN);
@@ -23,35 +22,6 @@ export function ProfileScreen(props) {
         alert("You are now logged out");
     }
 
-    async function safeProfil () {
-        setSavingProfile(true);
-        
-        let profileUpdateDTO = {
-            id: props.userInfo.id,
-            name: props.userInfo.user,
-            catchPhrase: catchPhrase,
-            pictureURL: profilepicture.value
-        };
-
-        let profileUpdateResponse;
-        try {
-            profileUpdateResponse = await updateProfile(profileUpdateDTO);
-        }
-        catch (error) {
-            console.log(error)
-            setSavingProfile(false);
-            return;
-        }
-
-        setSavingProfile(false);
-        if (!profileUpdateResponse.ok) {
-            alert("Failed to save update");
-            return;
-        }
-
-        alert("Your profil is now saved");
-        
-    }
 
     function handleInput(e) {
         const el = textArearRef.current;
@@ -62,10 +32,9 @@ export function ProfileScreen(props) {
     return (
         <>
             <div>
-                <h1 className="holywhiteboardHeader">The profil of our {props.userInfo.user}</h1>
+                <h1 className="holywhiteboardHeader">En anden profil end din muhahahahah</h1>
             </div>
             <div className="holyWhiteboardContent">
-                <button className="loginButton" id="safeButton" onClick={safeProfil} disabled={savingProfile}>Save</button>
                 <label><b>Name:</b> {props.userInfo.user}</label>
                 <br />
                 <label><b>Email:</b> {props.userInfo.email}</label>
@@ -74,14 +43,13 @@ export function ProfileScreen(props) {
                 <br />
                 <label {...mortenlove}><b>What do you love most about Morten</b></label>
                 <br />
-                <textarea ref={textArearRef} className="profilInput" onInput={handleInput} onChange={(event) => setCatchPhrase(event.target.value)}></textarea>
+                <textarea ref={textArearRef} className="profilInput" onInput={handleInput}></textarea>
                 <br />
                 <label><b>Profil picture - use a url:</b></label>
                 <br />
                 <input {...profilepicture} className="profilInput"></input>
                 <img src={profilepicture.value} hidden={hide} className="profilPicture" alt=""></img>
                 <br />
-
             </div>
             <div>
                 <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
