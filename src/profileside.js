@@ -1,6 +1,7 @@
 import React, { useRef, useState} from "react";
 import { useInput } from "./hooks";
 import { pageStates } from "./enums";
+import { updateProfile } from "./api/api";
 import "./styles.css"
 
 export function ProfileScreen(props) {
@@ -11,6 +12,8 @@ export function ProfileScreen(props) {
 
     let mortenlove = useInput("");
     const textArearRef = useRef(null);
+    let [savingProfile, setSavingProfile] = useState(false);
+    let [catchPhrase, setCatchPhrase] = useState("");
     const day = new Date(props.user.joinTime);
 
 const [imageError, setImageError] = useState(false);
@@ -27,8 +30,34 @@ const [imageError, setImageError] = useState(false);
         alert("You are now logged out");
     }
 
-    function safeProfil() {
-        alert("Your profil is now save");
+    async function safeProfil () {
+        setSavingProfile(true);
+        
+        let profileUpdateDTO = {
+            id: props.userInfo.id,
+            name: props.userInfo.user,
+            catchPhrase: catchPhrase,
+            pictureURL: profilepicture.value
+        };
+
+        let profileUpdateResponse;
+        try {
+            profileUpdateResponse = await updateProfile(profileUpdateDTO);
+        }
+        catch (error) {
+            console.log(error)
+            setSavingProfile(false);
+            return;
+        }
+
+        setSavingProfile(false);
+        if (!profileUpdateResponse.ok) {
+            alert("Failed to save update");
+            return;
+        }
+
+        alert("Your profil is now saved");
+        
     }
 
     function handleInput(e) {
@@ -52,7 +81,7 @@ const [imageError, setImageError] = useState(false);
                 <br />
                 <label {...mortenlove}><b>What do you love most about Morten</b></label>
                 <br />
-                <textarea ref={textArearRef} className="profilInput" onInput={handleInput}></textarea>
+                <textarea ref={textArearRef} className="profilInput" onInput={handleInput} onChange={(event) => setCatchPhrase(event.target.value)}></textarea>
                 <br />
                 <label><b>Profil picture - use a url:</b></label>
                 <br />
