@@ -10,6 +10,8 @@ let profilepicture = useInput("");
     const textArearRef = useRef(null);
     let otherprofil = props.posterID;
 
+    console.log(otherprofil);
+
     function holyboard() {
         props.setPageState(pageStates.LOGGED_IN);
     }

@@ -11,7 +11,7 @@ export function MainPage() {
 
     const [pageState, setPageState] = useState(pageStates.NOT_LOGGED_IN);
     const [userInfo, setUser] = useState({ user: null, email: null, id: null });
-    const [posterID, setPosterID] =useState("");
+    const [posterID, setPosterID] =useState({});
 
     return (
 
