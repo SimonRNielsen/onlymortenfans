@@ -8,6 +8,7 @@ let profilepicture = useInput("");
     let hide = !profilepicture.value.includes(".jpg");
     let mortenlove = useInput("");
     const textArearRef = useRef(null);
+    let otherprofil = props.posterID;
 
     function holyboard() {
         props.setPageState(pageStates.LOGGED_IN);

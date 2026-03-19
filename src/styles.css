@@ -122,7 +122,7 @@ input, textarea {
   margin-top: 20px;
   width: 100%;
   padding: 18px;
-  box-sizing: border-box; /* 🔥 DET HER FIXER DET */
+  box-sizing: border-box;
 }
 
 .showUsername {

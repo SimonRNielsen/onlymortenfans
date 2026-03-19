@@ -109,14 +109,15 @@ export function Post(props) {
         props.triggerUpdate();
     }
 
-    function seeOthersProfile() {
+    function seeOthersProfile(posterID) {
         props.setPageState(pageStates.OTHER_PROFILE_SIDE);
+        props.setPosterID(posterID);
     }
 
 
     return (
         <div className="postFrame" hidden={deleteSent}>
-            <h3 onClick={seeOthersProfile}>{posterName}</h3><button hidden={notPostOwner} disabled={sentDeleteRequest} onClick={deleteThisPost}>x</button>
+            <h3 onClick={() => seeOthersProfile(posterID)}>{posterName}</h3><button hidden={notPostOwner} disabled={sentDeleteRequest} onClick={deleteThisPost}>x</button>
             <hr />
             {pictureURL ? <img className="postImage" onClick={() => props.onClick(pictureURL)} src={video === null ? pictureURL : `https://img.youtube.com/vi/${video}/hqdefault.jpg`} alt="" /> : <></>}
             <div className="post">{post}</div>
@@ -129,6 +130,11 @@ export function Post(props) {
         </div>
     );
 
+}
+
+export function givemethatname(name) {
+    let myname = name;
+    console.log(myname);
 }
 
 function Comment(props) {

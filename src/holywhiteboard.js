@@ -151,7 +151,7 @@ export function HolyWhiteboard(props) {
                 {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection, action failed" />}
                 {videoplayer.src !== null ? <DisplayContent src={videoplayer.src} closeContent={videoplayer.reset} /> : <></>}
                 <CreateNewPost user={props.userInfo} triggerUpdate={update} postFailed={setServerConnection} />
-                {posts.slice().reverse().map((post) => <Post key={post.postID} setPageState={props.setPageState} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update} commentFailed={setServerConnection} />)}
+                {posts.slice().reverse().map((post) => <Post key={post.postID} setPosterID={props.setPosterID} setPageState={props.setPageState} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update} commentFailed={setServerConnection} />)}
             </div>
             <div>
                 <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
