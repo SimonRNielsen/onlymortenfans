@@ -121,9 +121,8 @@ input, textarea {
   background-color: #D1D0CE;
   margin-top: 20px;
   width: 100%;
-  /* fylder hele middleColumn */
-  max-width: none;
-  /* eller sæt en begrænsning, hvis ønsket */
+  padding: 18px;
+  box-sizing: border-box; /* 🔥 DET HER FIXER DET */
 }
 
 .showUsername {
@@ -144,6 +143,7 @@ input, textarea {
   justify-content: center;
   align-items: center;
 }
+
 
 .profilInput {
   width: 98%;
@@ -246,7 +246,4 @@ input, textarea {
 }
 .post {
   margin-top: 12px;
-}
-.postFrame, .newPostForm {
-  padding: 18px;
 }

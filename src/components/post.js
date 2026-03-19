@@ -107,7 +107,6 @@ export function Post(props) {
 
         setOpinionPending(false);
         props.triggerUpdate();
-
     }
 
     function seeOthersProfile() {

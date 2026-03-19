@@ -72,7 +72,7 @@ export function LoginScreen(props) {
 
     return (
         <div className="loginScreen">
-            <form id="logingForm" className="loginForm" onSubmit={handleSubmit}>
+            <form id="loginForm" className="loginForm" onSubmit={handleSubmit}>
                 <h1>Welcome to Only Morten Fans</h1>
                 <label><b>This is a fan side for our beloved saint Morten of Tours</b></label>
                 <label><b>He is a true saint who protect us against the devil himself Goosifer</b></label>
