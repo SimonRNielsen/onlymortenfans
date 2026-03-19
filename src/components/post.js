@@ -13,7 +13,7 @@ export function Post(props) {
     let activeUser = props.user.id;
     let postID = props.postID;
     let posterID = props.posterID;
-    let posterName = props.users[props.posterID];
+    let posterName = props.users[props.posterID]?.name || "Loading...";
     let post = props.post;
     let pictureURL = props.pictureURL;
     let comments = props.comments;
@@ -170,7 +170,7 @@ function Comment(props) {
 
     return(
         <div className="commentFrame" hidden={deleteSent}>
-            <label className="commentPoster"><b>{props.users[props.posterID]}:</b></label><button onClick={deleteThisComment} hidden={notCommentOwner} disabled={sentDeleteRequest}>x</button>
+            <label className="commentPoster"><b>{props.users[props.posterID].name}:</b></label><button onClick={deleteThisComment} hidden={notCommentOwner} disabled={sentDeleteRequest}>x</button>
             <p className="commentText">{props.comment}</p>
         </div>
     );

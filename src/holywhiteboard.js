@@ -125,9 +125,9 @@ export function HolyWhiteboard(props) {
     function fillUsers(userListingDTOArray) {
 
         let newDictionary = {};
-
-        userListingDTOArray.forEach((user) => { newDictionary[user.id] = user.name; });
-
+        
+        userListingDTOArray.forEach((user) => { newDictionary[user.id] = {name: user.name, pictureURL: user.pictureURL, catchPhrase: user.catchPhrase, joinTime: user.joinTime }; });
+        
         setUsers(newDictionary);
 
     }
