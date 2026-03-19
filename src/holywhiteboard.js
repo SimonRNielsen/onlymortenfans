@@ -125,9 +125,9 @@ export function HolyWhiteboard(props) {
     function fillUsers(userListingDTOArray) {
 
         let newDictionary = {};
-        
-        userListingDTOArray.forEach((user) => { newDictionary[user.id] = {name: user.name, pictureURL: user.pictureURL, catchPhrase: user.catchPhrase, joinTime: user.joinTime }; });
-        
+
+        userListingDTOArray.forEach((user) => { newDictionary[user.id] = { name: user.name, pictureURL: user.pictureURL, catchPhrase: user.catchPhrase, joinTime: user.joinTime }; });
+
         setUsers(newDictionary);
 
     }
@@ -138,8 +138,9 @@ export function HolyWhiteboard(props) {
         alert("You are now logged out");
     }
 
-    function profileSetting() {
+    function profileSetting(user) {
         props.setPageState(pageStates.PROFILE_SIDE);
+        props.setPosterID({user});
     }
 
     return (
@@ -155,7 +156,7 @@ export function HolyWhiteboard(props) {
             </div>
             <div>
                 <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
-                <button className="loginButton" id="profilButton" onClick={profileSetting}>Profil</button>
+                <button className="loginButton" id="profilButton" onClick={() => profileSetting(users[props.userInfo.id])}>Profil</button>
                 <h2 className="showUsername">Our holy member: {props.userInfo.user}</h2>
             </div>
         </>

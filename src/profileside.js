@@ -9,6 +9,7 @@ export function ProfileScreen(props) {
     let hide = !profilepicture.value.includes(".jpg");
     let mortenlove = useInput("");
     const textArearRef = useRef(null);
+    const day = new Date(props.user.joinTime);
 
     function holyboard() {
         props.setPageState(pageStates.LOGGED_IN);
@@ -37,11 +38,11 @@ export function ProfileScreen(props) {
             </div>
             <div className="holyWhiteboardContent">
                 <button className="loginButton" id="safeButton" onClick={safeProfil}>Save</button>
-                <label><b>Name:</b> {props.userInfo.user}</label>
+                <label><b>Name:</b> {props.user.name}</label>
                 <br />
                 <label><b>Email:</b> {props.userInfo.email}</label>
                 <br />
-                <label><b>Member since:</b> xxx</label>
+                <label><b>Member since:</b> {`${day.getDate()}/${day.getMonth() + 1} ${day.getFullYear()}`}</label>
                 <br />
                 <label {...mortenlove}><b>What do you love most about Morten</b></label>
                 <br />

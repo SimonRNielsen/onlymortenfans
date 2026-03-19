@@ -117,7 +117,7 @@ export function Post(props) {
 
     return (
         <div className="postFrame" hidden={deleteSent}>
-            <h3 onClick={() => seeOthersProfile(props.users[posterID])}>{posterName}</h3><button hidden={notPostOwner} disabled={sentDeleteRequest} onClick={deleteThisPost}>x</button>
+            <h3 onClick={() => seeOthersProfile(props.users[posterID])} className="otherprofil">{posterName}</h3><button hidden={notPostOwner} disabled={sentDeleteRequest} onClick={deleteThisPost}>x</button>
             <hr />
             {pictureURL ? <img className="postImage" onClick={() => props.onClick(pictureURL)} src={video === null ? pictureURL : `https://img.youtube.com/vi/${video}/hqdefault.jpg`} alt="" /> : <></>}
             <div className="post">{post}</div>

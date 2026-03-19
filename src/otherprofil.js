@@ -9,8 +9,7 @@ let profilepicture = useInput("");
     let mortenlove = useInput("");
     const textArearRef = useRef(null);
     let otherprofil = props.posterID;
-
-    console.log(otherprofil);
+const day = new Date(otherprofil.user.joinTime);
 
     function holyboard() {
         props.setPageState(pageStates.LOGGED_IN);
@@ -22,33 +21,23 @@ let profilepicture = useInput("");
         alert("You are now logged out");
     }
 
-
-    function handleInput(e) {
-        const el = textArearRef.current;
-        el.style.height = "auto";
-        el.style.height = el.scrollHeight + "px";
-    }
-
     return (
         <>
             <div>
-                <h1 className="holywhiteboardHeader">En anden profil end din muhahahahah</h1>
+                <h1 className="holywhiteboardHeader">The holy profil of {otherprofil.user.name}</h1>
             </div>
             <div className="holyWhiteboardContent">
-                <label><b>Name:</b> {props.userInfo.user}</label>
+                <label><b>Name:</b> {otherprofil.user.name}</label>
                 <br />
-                <label><b>Email:</b> {props.userInfo.email}</label>
-                <br />
-                <label><b>Member since:</b> xxx</label>
+                <label><b>Member since:</b> {`${day.getDate()}/${day.getMonth() + 1} ${day.getFullYear()}`}</label>
                 <br />
                 <label {...mortenlove}><b>What do you love most about Morten</b></label>
                 <br />
-                <textarea ref={textArearRef} className="profilInput" onInput={handleInput}></textarea>
+                <label>{otherprofil.user.catchPhrase}</label>
                 <br />
                 <label><b>Profil picture - use a url:</b></label>
                 <br />
-                <input {...profilepicture} className="profilInput"></input>
-                <img src={profilepicture.value} hidden={hide} className="profilPicture" alt=""></img>
+                <img src={otherprofil.user.pictureURL} hidden={hide} className="profilPicture" alt=""></img>
                 <br />
             </div>
             <div>

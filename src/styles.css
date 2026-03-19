@@ -147,7 +147,6 @@ input, textarea {
 
 .profilInput {
   width: 98%;
-  /* min-height: 40px; */
   height: auto;
   overflow: auto;
   resize: vertical;
@@ -157,6 +156,9 @@ input, textarea {
   width: 100%;
 }
 
+.otherprofil:hover {
+color: red;
+}
 .likeContainer {
   position: relative;
   display: inline-block;
