@@ -72,7 +72,7 @@ const [imageError, setImageError] = useState(false);
                 <h1 className="holywhiteboardHeader">Your profil {props.userInfo.user}</h1>
             </div>
             <div className="holyWhiteboardContent">
-                <button className="loginButton" id="safeButton" onClick={safeProfil}>Save</button>
+                <button className="loginButton" id="safeButton" onClick={safeProfil} disabled={savingProfile}>Save</button>
                 <label><b>Name:</b> {props.user.name}</label>
                 <br />
                 <label><b>Email:</b> {props.userInfo.email}</label>
