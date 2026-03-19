@@ -249,3 +249,9 @@ color: red;
 .post {
   margin-top: 12px;
 }
+
+.mortenlove {
+  border-style: solid;
+  display: block;
+  width: 100%;
+}

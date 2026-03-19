@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useInput } from "./hooks";
 import { pageStates } from "./enums";
 import "./styles.css"
@@ -10,6 +10,8 @@ let profilepicture = useInput("");
     const textArearRef = useRef(null);
     let otherprofil = props.posterID;
 const day = new Date(otherprofil.user.joinTime);
+let catchPhrase = otherprofil.user.catchPhrase || "Haven't entered yet, still love Morten for ever and ever";
+const [imageError, setImageError] = useState(false);
 
     function holyboard() {
         props.setPageState(pageStates.LOGGED_IN);
@@ -20,7 +22,7 @@ const day = new Date(otherprofil.user.joinTime);
         props.setUser({ user: null, email: null, id: null });
         alert("You are now logged out");
     }
-
+console.log(otherprofil.user);
     return (
         <>
             <div>
@@ -33,11 +35,10 @@ const day = new Date(otherprofil.user.joinTime);
                 <br />
                 <label {...mortenlove}><b>What do you love most about Morten</b></label>
                 <br />
-                <label>{otherprofil.user.catchPhrase}</label>
-                <br />
+                <label  className="mortenlove">{catchPhrase}</label>
                 <label><b>Profil picture - use a url:</b></label>
                 <br />
-                <img src={otherprofil.user.pictureURL} hidden={hide} className="profilPicture" alt=""></img>
+                <img src={otherprofil.user.pictureURL} hidden={imageError} onError={() => setImageError(true)} onLoad={() => setImageError(false)} className="profilPicture" alt=""></img>
                 <br />
             </div>
             <div>

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useInput } from "./hooks";
 import { pageStates } from "./enums";
 import "./styles.css"
@@ -6,10 +6,16 @@ import "./styles.css"
 export function ProfileScreen(props) {
 
     let profilepicture = useInput("");
-    let hide = !profilepicture.value.includes(".jpg");
+
+
+
     let mortenlove = useInput("");
     const textArearRef = useRef(null);
     const day = new Date(props.user.joinTime);
+
+const [imageError, setImageError] = useState(false);
+
+
 
     function holyboard() {
         props.setPageState(pageStates.LOGGED_IN);
@@ -34,7 +40,7 @@ export function ProfileScreen(props) {
     return (
         <>
             <div>
-                <h1 className="holywhiteboardHeader">The profil of our {props.userInfo.user}</h1>
+                <h1 className="holywhiteboardHeader">Your profil {props.userInfo.user}</h1>
             </div>
             <div className="holyWhiteboardContent">
                 <button className="loginButton" id="safeButton" onClick={safeProfil}>Save</button>
@@ -51,7 +57,7 @@ export function ProfileScreen(props) {
                 <label><b>Profil picture - use a url:</b></label>
                 <br />
                 <input {...profilepicture} className="profilInput"></input>
-                <img src={profilepicture.value} hidden={hide} className="profilPicture" alt=""></img>
+                <img src={profilepicture.value} hidden={imageError} onError={() => setImageError(true)} onLoad={() => setImageError(false)} className="profilPicture" alt=""></img>
                 <br />
 
             </div>
