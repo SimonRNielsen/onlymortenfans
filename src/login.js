@@ -47,6 +47,7 @@ export function LoginScreen(props) {
             response = await login(loginDTO);
             if (!response || !response.ok) {
                 setInputValid(false);
+                setInputDisabled(false);
                 return;
             }
         }
@@ -62,7 +63,7 @@ export function LoginScreen(props) {
         password.reset();
 
         let responseData = await response.json();
-
+        
         props.setPageState(pageStates.LOGGED_IN);
         props.setUser({ user: responseData.name, email: responseData.email, id: responseData.id });
         setInputValid(true);
@@ -96,7 +97,7 @@ export function LoginScreen(props) {
                 <br />
                 <button type="submit" disabled={inputDisabled || !validInputs()} className="loginButton">Login</button>
                 <br />
-                <button disabled={inputDisabled} className="loginButton" onClick={switchToCreateUser}>Create new user</button>
+                <button disabled={inputDisabled} className="loginButton" onClick={switchToCreateUser} type="button">Create new user</button>
             </form>
         </ div>
     );
