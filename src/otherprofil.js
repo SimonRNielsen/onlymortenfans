@@ -1,13 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useInput } from "./hooks";
 import { pageStates } from "./enums";
 import "./styles.css"
 
 export function OtherProfileScreen(props) { 
-let profilepicture = useInput("");
-    let hide = !profilepicture.value.includes(".jpg");
+// let profilepicture = useInput("");
     let mortenlove = useInput("");
-    const textArearRef = useRef(null);
+    // const textArearRef = useRef(null);
     let otherprofil = props.posterID;
 const day = new Date(otherprofil.user.joinTime);
 let catchPhrase = otherprofil.user.catchPhrase || "Haven't entered yet, still love Morten for ever and ever";
