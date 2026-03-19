@@ -6,6 +6,7 @@ const LOGIN_URL = API + "users/login"; //Post --> LoginDTO = UserReturnDTO
 const CREATE_USER = API + "users/create"; //Post --> CreateUserDTO = UserReturnDTO
 const GET_USERS = API + "users/getUsers"; //Get = List<UserListingDTO>
 const CHECK_USERS = API + "users/checknewusers"; //Get = string (Hash-value -> List<UserListingDTO>)
+const PROFILE = API + "users/updateprofile";
 
 //Posts Endpoints
 const POSTS = API + "posts/posts"; //Get = List<PostDTO>
@@ -66,4 +67,8 @@ export async function deleteComment(deleteCommentDTO) {
 
 export async function updatePosts() {
     return fetch(UPDATE);
+}
+
+export async function updateProfile(updateProfileDTO) {
+    return makePromise(PROFILE, updateProfileDTO);
 }
