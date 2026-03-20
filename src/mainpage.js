@@ -27,7 +27,6 @@ export function MainPage() {
                     {pageState ===pageStates.PROFILE_SIDE ? <ProfileScreen setPageState={setPageState} setUser={setUser} userInfo={userInfo} {...posterID}/> : <></>}
                     {pageState ===pageStates.OTHER_PROFILE_SIDE ? <OtherProfileScreen setPageState={setPageState} setUser={setUser} userInfo={userInfo} posterID={posterID}/> : <></>}
                 </>
-
             </div>
             <div className="column" id="rightColumn"></div>
         </div>

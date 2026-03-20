@@ -132,11 +132,6 @@ export function Post(props) {
 
 }
 
-export function givemethatname(name) {
-    let myname = name;
-    console.log(myname);
-}
-
 function Comment(props) {
     const [deleteSent, setDeleteSent] = useState(false);
     const [sentDeleteRequest, setSentDeleteRequest] = useState(false);
