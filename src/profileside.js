@@ -80,7 +80,7 @@ export function ProfileScreen(props) {
                 <label><b>Profil picture - use a url:</b></label>
                 <br />
                 <input {...profilepicture} className="profilInput"></input>
-                <img src={profilepicture.value} hidden={imageError} onError={() => setImageError(true)} onLoad={() => setImageError(false)} className="profilPicture" alt=""></img>
+                {profilepicture.value !== "" ? <img src={profilepicture.value} hidden={imageError} onError={() => setImageError(true)} onLoad={() => setImageError(false)} className="profilPicture" alt=""></img> : <></>}
                 <br />
             </div>
             <div>
