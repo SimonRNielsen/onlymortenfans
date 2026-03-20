@@ -5,8 +5,8 @@ const API = "https://reactapi-6jhi.onrender.com/api/";
 const LOGIN_URL = API + "users/login"; //Post --> LoginDTO = UserReturnDTO
 const CREATE_USER = API + "users/create"; //Post --> CreateUserDTO = UserReturnDTO
 const GET_USERS = API + "users/getUsers"; //Get = List<UserListingDTO>
-const CHECK_USERS = API + "users/checknewusers"; //Get = string (Hash-value -> List<UserListingDTO>)
-const PROFILE = API + "users/updateprofile";
+const CHECK_USERS = API + "users/checknewusers"; //Get = string (Hash-value af List<UserListingDTO>) --- forhindrer gentagne større fetches fra server hvis der ingen ændringer er
+const PROFILE = API + "users/updateprofile"; //Post --> UpdateProfileDTO = status + feedback
 
 //Posts Endpoints
 const POSTS = API + "posts/posts"; //Get = List<PostDTO>
@@ -15,7 +15,7 @@ const OPINION = API + "posts/addopinion"; //Post --> OpinionDTO = status + feedb
 const NEW_POST = API + "posts/newpost"; //Post --> CreatePostDTO = status + feedback
 const DELETE_POST = API + "posts/deletepost"; //Delete --> DeletePostDTO = status + feedback
 const DELETE_COMMENT = API + "posts/deletecomment"; //Delete --> DeleteCommentDTO = status + feedback
-const UPDATE = API + "posts/update"; //Get = string (Hash-value -> List<PostDTO>)
+const UPDATE = API + "posts/update"; //Get = string (Hash-value af List<PostDTO>) --- forhindrer gentagne større fetches fra server hvis der ingen ændringer er
 
 async function makePromise(url, dto, isDelete=false) {
     return fetch(url, {

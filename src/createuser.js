@@ -12,9 +12,6 @@ export function CreateScreen(props) {
     let [inputDisabled, setInputDisabled] = useState(false);
     let name = useInput("");
     let repeatpassword = useInput("");
-
-    // let validName = / /.test(name.value) && name.length < 2;
-
     let validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
     let containsCapitalCharacter = /[A-Z]/.test(password.value);
     let containsSmallCharacter = /[a-z]/.test(password.value);
@@ -44,12 +41,10 @@ export function CreateScreen(props) {
                 <label><b>You are on the rigth path to join us</b></label>
                 <label><b>Good bless your soul</b></label>
                 <br />
-                {/* </form>
-            <form id="loginForm" className ="loginForm" onSubmit={handleSubmit}> */}
                 <label className="loginLabel">Name:</label>
                 <input {...name} className="loginInput" />
                 <br />
-                {TooltipUsername(name.value)}
+                <TooltipUsername username={name.value} />
                 <br />
                 <label className="loginLabel">Email:</label>
                 <input {...email} className="loginInput" />
@@ -62,7 +57,7 @@ export function CreateScreen(props) {
                 <input {...repeatpassword} type="password" className="loginInput"></input>
                 <br />
                 <PasswordTooltip small={containsSmallCharacter} capital={containsCapitalCharacter} number={containsNumber} isLong={isLongEnough} />
-                {TooltipRepeatPassword(repeatpassword.value, password.value)}
+                <TooltipRepeatPassword repeat={repeatpassword.value} password={password.value} />
                 <br />
                 <button type="submit" disabled={inputDisabled || !validInputs()} className="loginButton">Create menber</button>
                 <br />
@@ -78,15 +73,15 @@ export function CreateScreen(props) {
     function TooltipRepeatPassword(repeatpassword, password) {
         let working = repeatpassword === password && password !== "";
 
-        return <div className="tooltip">Password must be the same {working ? "✔️" : "❌"}</div>
+        return (<div className="tooltip">Password must be the same {working ? "✔️" : "❌"}</div>);
     }
 
 
 
-    function TooltipUsername(username) {
+    function TooltipUsername({ username }) {
         let working = !(/ /.test(username) || username.length < 2);
 
-        return <div className="tooltip">Username must have a valid format, eksample: martin or saint92 {working ? "✔️" : "❌"}</div>
+        return (<div className="tooltip">Username must have a valid format, eksample: martin or saint92 {working ? "✔️" : "❌"}</div>);
     }
 
     async function handleSubmit(event) {

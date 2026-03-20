@@ -7,18 +7,12 @@ import "./styles.css"
 export function ProfileScreen(props) {
 
     let profilepicture = useInput("");
-
-
-
     let mortenlove = useInput("");
     const textArearRef = useRef(null);
     let [savingProfile, setSavingProfile] = useState(false);
     let [catchPhrase, setCatchPhrase] = useState("");
     const day = new Date(props.user.joinTime);
-
-const [imageError, setImageError] = useState(false);
-
-
+    const [imageError, setImageError] = useState(false);
 
     function holyboard() {
         props.setPageState(pageStates.LOGGED_IN);
@@ -88,7 +82,6 @@ const [imageError, setImageError] = useState(false);
                 <input {...profilepicture} className="profilInput"></input>
                 <img src={profilepicture.value} hidden={imageError} onError={() => setImageError(true)} onLoad={() => setImageError(false)} className="profilPicture" alt=""></img>
                 <br />
-
             </div>
             <div>
                 <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>

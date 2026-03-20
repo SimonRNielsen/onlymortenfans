@@ -4,13 +4,11 @@ import { pageStates } from "./enums";
 import "./styles.css"
 
 export function OtherProfileScreen(props) { 
-// let profilepicture = useInput("");
     let mortenlove = useInput("");
-    // const textArearRef = useRef(null);
     let otherprofil = props.posterID;
-const day = new Date(otherprofil.user.joinTime);
-let catchPhrase = otherprofil.user.catchPhrase || "Haven't entered yet, still love Morten for ever and ever";
-const [imageError, setImageError] = useState(false);
+    const day = new Date(otherprofil.user.joinTime);
+    let catchPhrase = otherprofil.user.catchPhrase || "Haven't entered yet, still love Morten for ever and ever";
+    const [imageError, setImageError] = useState(false);
 
     function holyboard() {
         props.setPageState(pageStates.LOGGED_IN);
@@ -21,7 +19,7 @@ const [imageError, setImageError] = useState(false);
         props.setUser({ user: null, email: null, id: null });
         alert("You are now logged out");
     }
-console.log(otherprofil.user);
+    
     return (
         <>
             <div>

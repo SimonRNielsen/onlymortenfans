@@ -53,7 +53,7 @@ export function LoginScreen(props) {
         }
         catch (error) {
             setServerError(true);
-            console.error(error);
+            console.log(error);
             return;
         }
 
@@ -81,8 +81,6 @@ export function LoginScreen(props) {
                 <label><b>If you are not already a menber come join us</b></label>
                 <label><b>And show your love and appreciation for his holy work</b></label>
                 <br />
-            {/* </form>
-            <form id="loginForm" className="loginForm" onSubmit={handleSubmit}> */}
                 {serverError ? <ErrorOccured text="Error from server, please try again later" /> : <></>}
                 {inputValid ? <></> : <ErrorOccured text="Invalid email and/or password, make certain you entered the correct info and the user exists" />}
                 <label className="loginLabel">Email:</label>
