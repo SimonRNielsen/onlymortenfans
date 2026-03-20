@@ -167,6 +167,7 @@ function CreateNewPost(props) {
     let [submittingPost, setSubmittingPost] = useState(false);
     let content = useInput("");
     let post = useInput("");
+        const textArearRef = useRef(null);
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -224,9 +225,15 @@ function CreateNewPost(props) {
         }
     }
 
+    function handleInput(e) {
+        const el = textArearRef.current;
+        el.style.height = "auto";
+        el.style.height = el.scrollHeight + "px";
+    }
+
     return (
         <form className="newPostForm" onSubmit={handleSubmit}>
-            <label>Anything interesting to post?</label><br /><textarea className="newPostText" {...post} /><br />
+            <label>Anything interesting to post?</label><br /><textarea className="newPostText" {...post} onInput={handleInput} ref={textArearRef}/><br />
             <label>Youtube video or image link:</label><br /><input className="newPostInput" {...content} /><br />
             <br /><button type="submit" className="newPostButton" disabled={submittingPost}>Submit</button>
         </ form>

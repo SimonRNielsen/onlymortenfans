@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { addComment, addOpinion, deleteComment, deletePost } from "../api/api";
 import like from "../pics/glorie2.png";
 import dislike from "../pics/death-goose_small.png";
@@ -191,6 +191,7 @@ function Comment(props) {
 function NewComment(props) {
     let comment = useInput("");
     let [postPending, setPostPending] = useState(false);
+    const textArearRef = useRef(null);
 
     async function createComment(event) {
         event.preventDefault();
@@ -231,9 +232,15 @@ function NewComment(props) {
 
     }
 
+    function handleInput(e) {
+        const el = textArearRef.current;
+        el.style.height = "auto";
+        el.style.height = el.scrollHeight + "px";
+    }
+
     return (
         <form className="newCommentForm" onSubmit={createComment}>
-            <textarea className="newCommentText" {...comment} />
+            <textarea className="newCommentText" {...comment} onInput={handleInput} ref={textArearRef}/>
             <br />
             <button type="submit" disabled={postPending}>Send</button>
         </form>
