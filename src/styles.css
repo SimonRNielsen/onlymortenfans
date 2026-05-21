@@ -255,3 +255,7 @@ color: red;
   display: block;
   width: 100%;
 }
+
+.opinionImg {
+  border: 2px solid black;
+}
