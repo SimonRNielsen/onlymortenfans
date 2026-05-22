@@ -6,8 +6,8 @@ import "./styles.css"
 export function OtherProfileScreen(props) { 
     let mortenlove = useInput("");
     let otherprofil = props.posterID;
-    const day = new Date(otherprofil.user?.joinTime);
-    let catchPhrase = otherprofil.user.catchPhrase || "Haven't entered yet, still love Morten for ever and ever";
+    const day = new Date(otherprofil?.user?.joinTime);
+    let catchPhrase = otherprofil?.user?.catchPhrase || "Haven't entered yet, still love Morten for ever and ever";
     const [imageError, setImageError] = useState(false);
 
     function holyboard() {
@@ -23,10 +23,10 @@ export function OtherProfileScreen(props) {
     return (
         <>
             <div>
-                <h1 className="holywhiteboardHeader">The holy profil of {otherprofil.user.name}</h1>
+                <h1 className="holywhiteboardHeader">The holy profil of {otherprofil?.user?.name}</h1>
             </div>
             <div className="holyWhiteboardContent">
-                <label><b>Name:</b> {otherprofil.user.name}</label>
+                <label><b>Name:</b> {otherprofil?.user?.name}</label>
                 <br />
                 <label><b>Member since:</b> {`${day.getDate()}/${day.getMonth() + 1} ${day.getFullYear()}`}</label>
                 <br />
@@ -35,7 +35,7 @@ export function OtherProfileScreen(props) {
                 <label  className="mortenlove">{catchPhrase}</label>
                 <label><b>Profil picture - use a url:</b></label>
                 <br />
-                <img src={otherprofil.user.pictureURL} hidden={imageError} onError={() => setImageError(true)} onLoad={() => setImageError(false)} className="profilPicture" alt=""></img>
+                <img src={otherprofil?.user?.pictureURL} hidden={imageError} onError={() => setImageError(true)} onLoad={() => setImageError(false)} className="profilPicture" alt=""></img>
                 <br />
             </div>
             <div>
