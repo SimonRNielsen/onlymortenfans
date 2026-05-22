@@ -125,7 +125,7 @@ export function Post(props) {
             <label className="opinionLabel">Likes:</label><div className="likeContainer" onClick={() => setOpinion(true)}><img src={like} alt="likes" className="opinionImg" /><div className="likeText">{likes.length}</div></div>
             <label className="opinionLabel">Dislikes:</label><div className="likeContainer" onClick={() => setOpinion(false)}><img src={dislike} alt="dislikes" className="opinionImg" /><div className="dislikeText">{dislikes.length}</div></div>
             <hr />
-            <NewComment postID={postID} posterID={activeUser} triggerUpdate={props.triggerUpdate} commentFailed={props.commentFailed} />
+            <NewComment postID={postID} posterID={activeUser} triggerUpdate={props.triggerUpdate} commentFailed={props.commentFailed} setError={props.setError} setLoading={props.setLoading} />
             {comments.map((comment) => <Comment key={comment.commentID} {...comment} users={props.users} user={props.user} triggerUpdate={props.triggerUpdate} />)}
             <hr />
         </div>
@@ -187,6 +187,8 @@ function Comment(props) {
 function NewComment(props) {
     let comment = useInput("");
     let [postPending, setPostPending] = useState(false);
+    let [error, setError] = useState(null);
+    let [loading, setLoading] = useState(false);
     const textArearRef = useRef(null);
 
     async function createComment(event) {
@@ -207,14 +209,31 @@ function NewComment(props) {
         let newCommentResponse;
 
         try {
-            newCommentResponse = await addComment(newCommentDTO);
-        }
 
+            setLoading(true);
+            setError(null);
+
+            newCommentResponse = await addComment(newCommentDTO);
+            
+        }
         catch (error) {
+
+            if (error.name === "AbortError")
+                setError("Request timed out");
+            else
+                setError(error.message);
+            
             console.log(error);
             setPostPending(false);
             props.commentFailed(false);
+
             return;
+
+        }
+        finally {
+
+            setLoading(false);
+
         }
 
         setPostPending(false);
@@ -234,8 +253,12 @@ function NewComment(props) {
         el.style.height = el.scrollHeight + "px";
     }
 
+    if (loading)
+        return <div className="spinner" />
+
     return (
         <form className="newCommentForm" onSubmit={createComment}>
+            {error && <label><b>{error}</b></label>}
             <textarea className="newCommentText" {...comment} onInput={handleInput} ref={textArearRef}/>
             <br />
             <button type="submit" disabled={postPending}>Send</button>

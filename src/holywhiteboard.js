@@ -14,6 +14,9 @@ export function HolyWhiteboard(props) {
     const postHash = useRef(null);
     const userHash = useRef(null);
     const videoplayer = useClick(null);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [posting, setPosting] = useState(false);
 
     /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
@@ -34,6 +37,8 @@ export function HolyWhiteboard(props) {
         try {
             let getPostHash = updatePosts();
             let getUserHash = checkUsers();
+            setError(null);
+            setLoading(true);
 
             getPostHashResponse = await getPostHash;
             getUserHashResponse = await getUserHash;
@@ -48,9 +53,22 @@ export function HolyWhiteboard(props) {
         }
 
         catch (error) {
+
+            if (error.name === "AbortError")
+                setError("Request timed out");
+            else
+                setError(error.message);
+
             console.log(error);
+
             return;
+
         }
+        finally {
+
+            setLoading(false);
+
+        }        
 
         let postResponseData = await getPostHashResponse.text();
         let userResponseData = await getUserHashResponse.text();
@@ -84,23 +102,38 @@ export function HolyWhiteboard(props) {
                 getNewUsers = getUsers();
             }
             if (newPosts) {
+                setError(null);
+                setLoading(true);
                 getNewPostsResponse = await getNewPosts;
                 if (!getNewPostsResponse.ok) {
                     return;
                 }
             }
             if (newUsers) {
+                setError(null);
+                setLoading(true);
                 getNewUsersResponse = await getNewUsers;
                 if (!getNewUsersResponse.ok) {
                     return;
                 }
             }
         }
-
         catch (error) {
+
+            if (error.name === "AbortError")
+                setError("Request timed out");
+            else
+                setError(error.message);
+
             console.log(error);
             setServerConnection(false);
+            
             return;
+        }
+        finally {
+
+            setLoading(false);
+
         }
 
         if (newUsers) {
@@ -148,10 +181,12 @@ export function HolyWhiteboard(props) {
                 <h1 className="holywhiteboardHeader">The holy whiteboard of Only Morten Fans</h1>
             </div>
             <div className="holyWhiteboardContent">
+                {error && <label><b>{error}</b></label>}
+                {loading && <div className="spinner" />}
                 {serverConnectionActive ? <></> : <ErrorOccured text="Error with server connection, action failed" />}
                 {videoplayer.src !== null ? <DisplayContent src={videoplayer.src} closeContent={videoplayer.reset} /> : <></>}
-                <CreateNewPost user={props.userInfo} triggerUpdate={update} postFailed={setServerConnection} />
-                {posts.slice().reverse().map((post) => <Post key={post.postID} setPosterID={props.setPosterID} setPageState={props.setPageState} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update} commentFailed={setServerConnection} />)}
+                {!posting && <CreateNewPost user={props.userInfo} triggerUpdate={update} postFailed={setServerConnection} setError={setError} setLoading={setLoading} setPosting={setPosting} />}
+                {posts.slice().reverse().map((post) => <Post key={post.postID} setPosterID={props.setPosterID} setPageState={props.setPageState} {...post} users={users} user={props.userInfo} onClick={videoplayer.onClick} triggerUpdate={update} commentFailed={setServerConnection} setLoading={setLoading} setError={setError} />)}
             </div>
             <div>
                 <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
@@ -189,13 +224,31 @@ function CreateNewPost(props) {
         let createPostResponse;
 
         try {
+            props.setError(null);
+            props.setLoading(true);
+            props.setPosting(true);
             createPostResponse = await addNewPost(createPostDTO);
         }
         catch (error) {
+
             console.log(error);
+
+            if (error.name === "AbortError")
+                props.setError("Request timed out");
+            else
+                props.setError(error.message);
+
             props.postFailed(false);
             setSubmittingPost(false);
+
             return;
+
+        }
+        finally {
+
+            props.setLoading(false);
+            props.setPosting(false);
+
         }
 
         setSubmittingPost(false);

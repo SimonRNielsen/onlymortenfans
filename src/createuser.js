@@ -10,6 +10,8 @@ export function CreateScreen(props) {
     let email = useInput("");
     let password = useInput("");
     let [inputDisabled, setInputDisabled] = useState(false);
+    let [error, setError] = useState(null);
+    let [loading, setLoading] = useState(false);
     let name = useInput("");
     let repeatpassword = useInput("");
     let validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
@@ -34,12 +36,16 @@ export function CreateScreen(props) {
 
     }
 
+    if (loading)
+        return <div className="spinner" />
+
     return (
         <div className="loginScreen">
             <form id="loginForm" className="loginForm" onSubmit={handleSubmit}>
                 <h1>Be a part of Only Morten Fans</h1>
                 <label><b>You are on the rigth path to join us</b></label>
                 <label><b>Good bless your soul</b></label>
+                {error && <label><b>{error}</b></label>}
                 <br />
                 <label className="loginLabel">Name:</label>
                 <input {...name} className="loginInput" />
@@ -70,13 +76,11 @@ export function CreateScreen(props) {
         props.setPageState(pageStates.NOT_LOGGED_IN);
     }
 
-    function TooltipRepeatPassword(repeatpassword, password) {
-        let working = repeatpassword === password && password !== "";
+    function TooltipRepeatPassword({repeat, password}) {
+        let working = repeat === password && password && repeat !== "";
 
         return (<div className="tooltip">Password must be the same {working ? "✔️" : "❌"}</div>);
     }
-
-
 
     function TooltipUsername({ username }) {
         let working = !(/ /.test(username) || username.length < 2);
@@ -97,6 +101,9 @@ export function CreateScreen(props) {
         let response;
         
         try {
+
+            setError(null);
+            setLoading(true);
             
             response = await create(createUserDTO);
             
@@ -110,10 +117,19 @@ export function CreateScreen(props) {
 
         }
         catch (error) {
+            
             console.log(error);
+            
+            if (error.name === "AbortError")
+                setError("Request timed out");
+            else
+                setError(error.message);
+
         }
         finally {
             setInputDisabled(false);
+            setInputDisabled(false);
+            setLoading(false);
         }
 
         let responseData = await response.json();

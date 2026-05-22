@@ -11,6 +11,8 @@ export function LoginScreen(props) {
     let [inputDisabled, setInputDisabled] = useState(false);
     let [inputValid, setInputValid] = useState(true);
     let [serverError, setServerError] = useState(false);
+    let [error, setError] = useState(null);
+    let [loading, setLoading] = useState(false);
     let validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
     let containsCapitalCharacter = /[A-Z]/.test(password.value);
     let containsSmallCharacter = /[a-z]/.test(password.value);
@@ -44,20 +46,37 @@ export function LoginScreen(props) {
         let response;
 
         try {
+
+            setError(null);
+            setLoading(true);
+
             response = await login(loginDTO);
             if (!response || !response.ok) {
                 setInputValid(false);
                 setInputDisabled(false);
                 return;
             }
+
         }
         catch (error) {
+
             setServerError(true);
+
+            if (error.name === "AbortError")
+                setError("Request timed out");
+            else
+                setError(error.message);
+
             console.log(error);
             return;
-        }
 
-        setInputDisabled(false);
+        }
+        finally {
+
+            setInputDisabled(false);
+            setLoading(false);
+
+        }
         
         email.reset();
         password.reset();
@@ -71,6 +90,9 @@ export function LoginScreen(props) {
 
     }
 
+    if (loading)
+        return <div className="spinner" />
+
     return (
         <div className="loginScreen">
             <form id="loginForm" className="loginForm" onSubmit={handleSubmit}>
@@ -82,6 +104,7 @@ export function LoginScreen(props) {
                 <label><b>And show your love and appreciation for his holy work</b></label>
                 <br />
                 {serverError ? <ErrorOccured text="Error from server, please try again later" /> : <></>}
+                {error && <label><b>{error}</b></label>}
                 {inputValid ? <></> : <ErrorOccured text="Invalid email and/or password, make certain you entered the correct info and the user exists" />}
                 <label className="loginLabel">Email:</label>
                 <input {...email} className="loginInput" />

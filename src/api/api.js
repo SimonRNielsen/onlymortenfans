@@ -17,8 +17,8 @@ const DELETE_POST = API + "posts/deletepost"; //Delete --> DeletePostDTO = statu
 const DELETE_COMMENT = API + "posts/deletecomment"; //Delete --> DeleteCommentDTO = status + feedback
 const UPDATE = API + "posts/update"; //Get = string (Hash-value af List<PostDTO>) --- forhindrer gentagne større fetches fra server hvis der ingen ændringer er
 
-async function makePromise(url, dto, isDelete=false, timeout = 60000) {
-    return fetch(url, {
+async function makePromise(url, dto, isDelete=false, timeout = 15000) {
+    return fetchWithTimeout(url, {
         method: isDelete ? "DELETE" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dto)}, timeout
@@ -26,6 +26,11 @@ async function makePromise(url, dto, isDelete=false, timeout = 60000) {
 }
 
 async function fetchWithTimeout(url, options = {}, timeout = 15000) {
+
+    // const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+
+    // if (isLocalhost)
+    //     await delay(2000);
 
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
@@ -45,12 +50,16 @@ async function fetchWithTimeout(url, options = {}, timeout = 15000) {
 
 }
 
+// function delay(ms) { //For testing "loading" cases
+//     return new Promise(resolve => setTimeout(resolve, ms));
+// }
+
 export async function login(loginDTO) {
-    return makePromise(LOGIN_URL, loginDTO)
+    return makePromise(LOGIN_URL, loginDTO, false, 60000)
 }
 
 export async function create(createUserDTO) {
-    return makePromise(CREATE_USER, createUserDTO);
+    return makePromise(CREATE_USER, createUserDTO, false, 60000);
 }
 
 export async function getUsers() {
