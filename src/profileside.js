@@ -1,4 +1,4 @@
-import React, { useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import { useInput } from "./hooks";
 import { pageStates } from "./enums";
 import { updateProfile } from "./api/api";
@@ -6,11 +6,12 @@ import "./styles.css"
 
 export function ProfileScreen(props) {
 
-    let profilepicture = useInput("");
+    let profilepicture = useInput(props.user.pictureURL);
     let mortenlove = useInput("");
     const textArearRef = useRef(null);
     let [savingProfile, setSavingProfile] = useState(false);
-    let [catchPhrase, setCatchPhrase] = useState("");
+    let [catchPhrase, setCatchPhrase] = useState(catchPhraseDefault());
+    let [name, setName] = useState(props.user.name);
     const day = new Date(props.user.joinTime);
     const [imageError, setImageError] = useState(false);
 
@@ -24,12 +25,19 @@ export function ProfileScreen(props) {
         alert("You are now logged out");
     }
 
-    async function safeProfil () {
+    function catchPhraseDefault() {
+        if (!props.user.catchPhrase) {
+            return "Haven't entered yet, still love Morten for ever and ever";
+        }
+        return props.user.catchPhrase;
+    }
+
+    async function safeProfil() {
         setSavingProfile(true);
-        
+
         let profileUpdateDTO = {
             id: props.userInfo.id,
-            name: props.userInfo.user,
+            name: name,
             catchPhrase: catchPhrase,
             pictureURL: profilepicture.value
         };
@@ -51,7 +59,13 @@ export function ProfileScreen(props) {
         }
 
         alert("Your profil is now saved");
-        
+
+        props.setUser({
+            ...props.userInfo,
+            user: name,
+            catchPhrase: catchPhrase,
+            pictureURL: profilepicture.value
+        });
     }
 
     function handleInput(e) {
@@ -63,11 +77,12 @@ export function ProfileScreen(props) {
     return (
         <>
             <div>
-                <h1 className="holywhiteboardHeader">Your profil {props.userInfo.user}</h1>
+                <h1 className="holywhiteboardHeader">Your profil {props.user.name}</h1>
             </div>
             <div className="holyWhiteboardContent">
                 <button className="loginButton" id="safeButton" onClick={safeProfil} disabled={savingProfile}>Save</button>
-                <label><b>Name:</b> {props.user.name}</label>
+                <label><b>Name:</b></label>
+                <textarea ref={textArearRef} className="profilInput" onInput={handleInput} onChange={(event) => setName(event.target.value)} defaultValue={props.user.name}></textarea>
                 <br />
                 <label><b>Email:</b> {props.userInfo.email}</label>
                 <br />
@@ -75,18 +90,18 @@ export function ProfileScreen(props) {
                 <br />
                 <label {...mortenlove}><b>What do you love most about Morten</b></label>
                 <br />
-                <textarea ref={textArearRef} className="profilInput" onInput={handleInput} onChange={(event) => setCatchPhrase(event.target.value)}></textarea>
+                <textarea ref={textArearRef} className="profilInput" onInput={handleInput} onChange={(event) => setCatchPhrase(event.target.value)} defaultValue={catchPhraseDefault()}></textarea>
                 <br />
                 <label><b>Profil picture - use a url:</b></label>
                 <br />
                 <input {...profilepicture} className="profilInput"></input>
-                {profilepicture.value !== "" ? <img src={profilepicture.value} hidden={imageError} onError={() => setImageError(true)} onLoad={() => setImageError(false)} className="profilPicture" alt=""></img> : <></>}
+                {profilepicture.value !== "" ? <img src={profilepicture.value} hidden={imageError} onError={() => setImageError(true)} onLoad={() => setImageError(false)} className="profilPicture" alt="" ></img> : <></>}
                 <br />
             </div>
             <div>
                 <button className="loginButton" id="logoutButton" onClick={logout}>Log out</button>
                 <button className="loginButton" id="profilButton" onClick={holyboard}>Back</button>
-                <h2 className="showUsername">Our holy member: {props.userInfo.user}</h2>
+                <h2 className="showUsername">Our holy member: {props.user.name}</h2>
             </div>
         </>
     )

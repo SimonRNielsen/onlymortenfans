@@ -124,8 +124,8 @@ export function HolyWhiteboard(props) {
     function fillUsers(userListingDTOArray) {
 
         let newDictionary = {};
-        
-        userListingDTOArray.forEach((user) => { newDictionary[user.id] = {name: user.name, pictureURL: user.pictureURL, catchPhrase: user.catchPhrase, joinTime: user.joinTime }; });
+
+        userListingDTOArray.forEach((user) => { newDictionary[user.id] = { name: user.name, pictureURL: user.pictureURL, catchPhrase: user.catchPhrase, joinTime: user.joinTime }; });
 
         setUsers(newDictionary);
 
@@ -139,7 +139,7 @@ export function HolyWhiteboard(props) {
 
     function profileSetting(user) {
         props.setPageState(pageStates.PROFILE_SIDE);
-        props.setPosterID({user});
+        props.setPosterID({ user });
     }
 
     return (
@@ -167,7 +167,7 @@ function CreateNewPost(props) {
     let [submittingPost, setSubmittingPost] = useState(false);
     let content = useInput("");
     let post = useInput("");
-        const textArearRef = useRef(null);
+    const textArearRef = useRef(null);
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -233,7 +233,7 @@ function CreateNewPost(props) {
 
     return (
         <form className="newPostForm" onSubmit={handleSubmit}>
-            <label>Anything interesting to post?</label><br /><textarea className="newPostText" {...post} onInput={handleInput} ref={textArearRef}/><br />
+            <label>Anything interesting to post?</label><br /><textarea className="newPostText" {...post} onInput={handleInput} ref={textArearRef} /><br />
             <label>Youtube video or image link:</label><br /><input className="newPostInput" {...content} /><br />
             <br /><button type="submit" className="newPostButton" disabled={submittingPost}>Submit</button>
         </ form>
