@@ -14,7 +14,7 @@ export function ProfileScreen(props) {
     let [name, setName] = useState(props.user.name);
     const day = new Date(props.user.joinTime);
     const [imageError, setImageError] = useState(false);
-
+ 
     function holyboard() {
         props.setPageState(pageStates.LOGGED_IN);
     }
