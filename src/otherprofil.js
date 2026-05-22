@@ -6,7 +6,7 @@ import "./styles.css"
 export function OtherProfileScreen(props) { 
     let mortenlove = useInput("");
     let otherprofil = props.posterID;
-    const day = new Date(otherprofil.user.joinTime);
+    const day = new Date(otherprofil.user?.joinTime);
     let catchPhrase = otherprofil.user.catchPhrase || "Haven't entered yet, still love Morten for ever and ever";
     const [imageError, setImageError] = useState(false);
 

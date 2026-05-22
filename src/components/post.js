@@ -123,7 +123,7 @@ export function Post(props) {
             <div className="post">{post}</div>
             <br />
             <label className="opinionLabel">Likes:</label><div className="likeContainer" onClick={() => setOpinion(true)}><img src={like} alt="likes" className="opinionImg" /><div className="likeText">{likes.length}</div></div>
-            <label className="opinionLabel">Dislikes</label><div className="likeContainer" onClick={() => setOpinion(false)}><img src={dislike} alt="dislikes" className="opinionImg" /><div className="dislikeText">{dislikes.length}</div></div>
+            <label className="opinionLabel">Dislikes:</label><div className="likeContainer" onClick={() => setOpinion(false)}><img src={dislike} alt="dislikes" className="opinionImg" /><div className="dislikeText">{dislikes.length}</div></div>
             <hr />
             <NewComment postID={postID} posterID={activeUser} triggerUpdate={props.triggerUpdate} commentFailed={props.commentFailed} />
             {comments.map((comment) => <Comment key={comment.commentID} {...comment} users={props.users} user={props.user} triggerUpdate={props.triggerUpdate} />)}

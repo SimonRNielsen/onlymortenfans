@@ -17,12 +17,32 @@ const DELETE_POST = API + "posts/deletepost"; //Delete --> DeletePostDTO = statu
 const DELETE_COMMENT = API + "posts/deletecomment"; //Delete --> DeleteCommentDTO = status + feedback
 const UPDATE = API + "posts/update"; //Get = string (Hash-value af List<PostDTO>) --- forhindrer gentagne større fetches fra server hvis der ingen ændringer er
 
-async function makePromise(url, dto, isDelete=false) {
+async function makePromise(url, dto, isDelete=false, timeout = 60000) {
     return fetch(url, {
         method: isDelete ? "DELETE" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dto)
-    }); 
+        body: JSON.stringify(dto)}, timeout
+    ); 
+}
+
+async function fetchWithTimeout(url, options = {}, timeout = 15000) {
+
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+
+    try {
+
+        const response = await fetch(url, { ...options, signal: controller.signal });
+
+        return response;
+
+    }
+    finally {
+
+        clearTimeout(id);
+
+    }
+
 }
 
 export async function login(loginDTO) {
@@ -34,15 +54,15 @@ export async function create(createUserDTO) {
 }
 
 export async function getUsers() {
-    return fetch(GET_USERS);
+    return fetchWithTimeout(GET_USERS);
 }
 
 export async function checkUsers() {
-    return fetch(CHECK_USERS);
+    return fetchWithTimeout(CHECK_USERS);
 }
 
 export async function getPosts() {
-    return fetch(POSTS);
+    return fetchWithTimeout(POSTS);
 }
 
 export async function addComment(newCommentDTO) {
@@ -66,7 +86,7 @@ export async function deleteComment(deleteCommentDTO) {
 }
 
 export async function updatePosts() {
-    return fetch(UPDATE);
+    return fetchWithTimeout(UPDATE);
 }
 
 export async function updateProfile(updateProfileDTO) {
