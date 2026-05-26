@@ -6,7 +6,7 @@ import "./styles.css"
 
 export function ProfileScreen(props) {
 
-    let profilepicture = useInput(props.user.pictureURL);
+    let profilepicture = useInput(profilePictureDefault());
     let mortenlove = useInput("");
     const textArearRef = useRef(null);
     let [savingProfile, setSavingProfile] = useState(false);
@@ -14,7 +14,7 @@ export function ProfileScreen(props) {
     let [name, setName] = useState(props.user.name);
     const day = new Date(props.user.joinTime);
     const [imageError, setImageError] = useState(false);
- 
+
     function holyboard() {
         props.setPageState(pageStates.LOGGED_IN);
     }
@@ -25,11 +25,20 @@ export function ProfileScreen(props) {
         alert("You are now logged out");
     }
 
+    //If catchphrase isn't filled out change it to a default message
     function catchPhraseDefault() {
         if (!props.user.catchPhrase) {
             return "Haven't entered yet, still love Morten for ever and ever";
         }
         return props.user.catchPhrase;
+    }
+
+    //If there isn't a picture replace it with an empty string
+    function profilePictureDefault() {
+        if (!props.user.pictureURL) {
+            return "";
+        }
+        return props.user.pictureURL;
     }
 
     async function safeProfil() {
@@ -60,6 +69,7 @@ export function ProfileScreen(props) {
 
         alert("Your profil is now saved");
 
+
         props.setUser({
             ...props.userInfo,
             user: name,
@@ -68,6 +78,7 @@ export function ProfileScreen(props) {
         });
     }
 
+    //Auto resize the inputbox if the text is to big for the box
     function handleInput(e) {
         const el = textArearRef.current;
         el.style.height = "auto";
